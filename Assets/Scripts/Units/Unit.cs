@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public abstract class Unit { 
@@ -9,15 +8,27 @@ public abstract class Unit {
 
     public string Name { get; private set; }
 
+    public Player Player { get; set; }
     public Team Team { get; set; }
     public Cage Cage {
         get => _cage;
         set {
             if (_cage != null && _cage != value) {
-                Cage from = _cage;
-                _cage = value;
-                _cage.Unit = this;
-                Game.Loop.UnitMoved(this, from, value);
+                if (value.Y == Team.Opponent.HomeY) {
+                    View.Move(value);
+                    View.RemoveUnit();
+                    Cage.Unit = null;
+                    Team.RemoveUnit(this);
+                    Player.Opponent.HP -= (int)Damage.Value;
+                    Game.Loop.UnitDied(this);
+                } else {
+                    Cage from = _cage;
+                    from.Unit = null;
+                    _cage = value;
+                    _cage.Unit = this;
+                    Game.Loop.UnitMoved(this, from, value);
+                    View.Move(value);
+                }
             }
             _cage = value;
         }
@@ -42,9 +53,21 @@ public abstract class Unit {
     public List<Skill> PassiveSkills { get; set; }
     public List<Effect> Effects { get; set; }
 
-    public List<Skill> Skills {
+    public List<Skill> BasicSkills {
         get {
             List<Skill> skills = new();
+            skills.AddRange(ActiveSkills);
+            skills.AddRange(PassiveSkills);
+            return skills;
+        }
+    }
+
+    public List<Skill> Skills {
+        get {
+            List<Skill> skills = new() {
+                Mover,
+                Attacker
+            };
             skills.AddRange(ActiveSkills);
             skills.AddRange(PassiveSkills);
             skills.AddRange(Effects);
@@ -59,7 +82,12 @@ public abstract class Unit {
     private Cage _cage;
     private decimal _hp;
 
-    public Unit(int hp, HPInfluence damage, int armor, int resistance) {
+    public Unit(int hp, string name, HPInfluence damage, int armor, int resistance) {
+        ActiveSkills = new();
+        PassiveSkills = new();
+        Effects = new();
+
+        Name = name;
         MaxHP = hp;
         HP = hp;
         Damage = damage;
@@ -82,10 +110,22 @@ public abstract class Unit {
         return this;
     }
 
-    public void Init(Sprite sprite, Cage cage, Team team, bool preview = false) {
+    public Unit AddPassiveSkill(Skill skill) {
+        PassiveSkills.Add(skill);
+        return this;
+    }
+
+    public Unit AddEffect(Effect effect) {
+        Effects.Add(effect);
+        return this;
+    }
+
+    public void Init(Sprite sprite, Cage cage, Player player, bool preview = false) {
         _sprite = sprite;
         if (!preview) {
-            Team = team;
+            Player = player;
+            Team = player.Team;
+            Team.AddUnit(this);
             Cage = cage;
             Cage.Unit = this;
             View = CreateView(Cage.View);
@@ -94,25 +134,26 @@ public abstract class Unit {
     }
 
     public virtual void ApplyHPChange(Unit from, HPInfluence hpChange) {
-        Game.Loop.PreApplyHpInfluence(from, this, hpChange);
+        HPInfluence hpChangeCopy = hpChange.Copy();
+        Game.Loop.PreApplyHpInfluence(from, this, hpChangeCopy);
 
-        if (hpChange.IsBlocked)
+        if (hpChangeCopy.IsBlocked)
             return;
 
-        decimal actualNumber = Math.Clamp(hpChange.Value, 0, 10000);
-        if (hpChange.Type == HPChangeType.Damage) {
-            if (hpChange.DamageType == DamageType.Physical)
-                actualNumber *= 1 - Armor;
-            else if (hpChange.DamageType == DamageType.Magical)
-                actualNumber *= 1 - Resistance;
+        decimal actualNumber = Math.Clamp(hpChangeCopy.Value, 0, 10000);
+        if (hpChangeCopy.Type == HPChangeType.Damage) {
+            if (hpChangeCopy.DamageType == DamageType.Physical)
+                actualNumber -= actualNumber * Armor / 10;
+            else if (hpChangeCopy.DamageType == DamageType.Magical)
+                actualNumber -= actualNumber * Resistance / 10;
 
             actualNumber = Math.Round(actualNumber, 1);
             HP -= actualNumber;
 
-            hpChange.Value = actualNumber;
-            Game.Loop.HpInfluenceApplied(from, this, hpChange);
+            hpChangeCopy.Value = actualNumber;
+            Game.Loop.HpInfluenceApplied(from, this, hpChangeCopy);
         } else {
-            if (hpChange.HealType == HealType.Standard)
+            if (hpChangeCopy.HealType == HealType.Standard)
                 actualNumber = Math.Clamp(actualNumber, 0, MaxHP - HP);
 
             actualNumber = Math.Round(actualNumber, 1);
@@ -123,6 +164,7 @@ public abstract class Unit {
 
     public virtual void Die() {
         Debug.Log($"{Name} died:(");
+        Cage.Unit = null;
         Team.RemoveUnit(this);
         UnityEngine.Object.Destroy(View.gameObject);
         Game.Loop.UnitDied(this);
@@ -136,8 +178,13 @@ public abstract class Unit {
         return unit.Team == Team;
     }
 
+    public bool HasEffect(string effectName) {
+        Effect effect = Effects.Find(e => e.Code == effectName);
+        return effect != null;
+    }
+
     private UnitView CreateView(CageView View) {
-        UnitView view = UnityEngine.Object.Instantiate(Game.UnitViewSpritesArchive.GetUnitViewPrefab(), View.transform);
+        UnitView view = UnityEngine.Object.Instantiate(Game.UnitsArchive.GetUnitViewPrefab(), View.transform);
         view.SetSprite(_sprite);
         return view;
     }

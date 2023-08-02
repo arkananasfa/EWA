@@ -8,7 +8,7 @@ public class GameActionBuilder {
         action.Type = GameActionType.Buy;
         action.Parameter = (int)unitType;
         int rowNumber = Mathf.RoundToInt(3.5f - Game.CurrentTeam.frontDirection * 3.5f);
-        action.PossibleTargets = CageListBuilder.New().UseRow(rowNumber).OnlyEmpty().Cages;
+        action.PossibleTargets = CageListBuilder.New.UseRow(rowNumber).OnlyEmpty().Cages;
         return action;
     }
 

@@ -1,3 +1,4 @@
+using UnityEngine;
 using Zenject;
 
 public class GameActionPerformer {
@@ -12,20 +13,28 @@ public class GameActionPerformer {
             PerformMove(action.Unit, action.Cage);
         if (action.Type == GameActionType.Attack)
             PerformAttack(action.Unit, action.Cage);
+        if (action.Type == GameActionType.Skill)
+            PerformActiveSkill(action.Unit, action.Parameter, action.Cage);
     }
 
     private void PerformBuy(Cage cage, UnitType type) {
         Unit newUnit = _unitsFactory.CreateUnit(type);
         newUnit.Cage = cage;
-        newUnit.Init(Game.UnitViewSpritesArchive.GetSpriteByUnitType(type), cage, Game.CurrentTeam);
+        var archiveElement = Game.UnitsArchive.GetElementByUnitType(type);
+        newUnit.Init(archiveElement.sprite, cage, Game.CurrentPlayer);
+        Game.CurrentPlayer.Gold -= archiveElement.price;
     }
 
     private void PerformMove(Unit unit, Cage cage) {
-        unit.Mover.Move(cage);
+        unit.Mover.Apply(cage);
     }
 
     private void PerformAttack(Unit unit, Cage cage) {
-        unit.Attacker.Attack(cage);
+        unit.Attacker.Apply(cage);
+    }
+
+    private void PerformActiveSkill(Unit unit, int skillNumber, Cage cage) {
+        unit.ActiveSkills[skillNumber].Apply(cage);
     }
 
 }

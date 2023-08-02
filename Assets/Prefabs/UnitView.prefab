@@ -93,6 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveIndicator: {fileID: 9208254702748822483}
   _attackIndicator: {fileID: 1323265060478786872}
+  _spriteMoveTime: 0.2
 --- !u!1001 &4070325780037173329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101,6 +102,58 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8692366446549023291}
     m_Modifications:
+    - target: {fileID: 121601094264055093, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f5c6a650a45cafd4eb755db80d1cfcae, type: 3}
+    - target: {fileID: 121601094264055093, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 121601094264055093, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 121601094264055093, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 121601094264055093, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035880474762091881, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: _canUseColor.b
+      value: 0.034147203
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035880474762091881, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: _canUseColor.g
+      value: 0.6698113
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035880474762091881, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: _canUseColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035880474762091881, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: _noCageToUseColor.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035880474762091881, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: _noCageToUseColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035880474762091881, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: _noCageToUseColor.g
+      value: 0.84313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035880474762091881, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: _noCageToUseColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035880474762091881, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: _cooldownNotReadyColor.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8277249139008110840, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
       propertyPath: m_Name
       value: AttackerIndicator
@@ -135,11 +188,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8909189929673116623, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 20
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8909189929673116623, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 20
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8909189929673116623, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
       propertyPath: m_LocalPosition.x
@@ -218,6 +271,58 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8692366446549023291}
     m_Modifications:
+    - target: {fileID: 121601094264055093, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a1a2db072853edb4db3977ce6284e2a6, type: 3}
+    - target: {fileID: 121601094264055093, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 121601094264055093, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 121601094264055093, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 121601094264055093, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035880474762091881, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: _canUseColor.b
+      value: 0.034147203
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035880474762091881, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: _canUseColor.g
+      value: 0.6698113
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035880474762091881, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: _canUseColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035880474762091881, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: _noCageToUseColor.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035880474762091881, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: _noCageToUseColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035880474762091881, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: _noCageToUseColor.g
+      value: 0.84313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035880474762091881, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: _noCageToUseColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035880474762091881, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
+      propertyPath: _cooldownNotReadyColor.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8277249139008110840, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
       propertyPath: m_Name
       value: MoverIndicator
@@ -252,11 +357,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8909189929673116623, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 20
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8909189929673116623, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 20
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8909189929673116623, guid: d4237129c2734fb478e6e938a15c9081, type: 3}
       propertyPath: m_LocalPosition.x

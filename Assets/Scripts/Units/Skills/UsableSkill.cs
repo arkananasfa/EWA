@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public abstract class UsableSkill : Skill {
 
+    public event Action OnUsed;
+
     protected Func<List<Cage>> getPossibleTargets;
     protected Action<Cage> applyEffect;
     
@@ -35,6 +37,7 @@ public abstract class UsableSkill : Skill {
     public virtual void Use() {
         if (!CanUse()) return;
         Game.CageChooseManager.SetAction(CreateAction());
+        OnUsed?.Invoke();
     }
 
     public override bool CanUse() {
@@ -46,7 +49,7 @@ public abstract class UsableSkill : Skill {
         action.Type = actionType;
         action.Parameter = skillNumber;
         action.Unit = owner;
-        action.PossibleTargets = getPossibleTargets();
+        action.PossibleTargets = GetPossibleCages();
         return action;
     }
 

@@ -1,4 +1,5 @@
 using System.Linq;
+using UnityEngine;
 using Zenject;
 
 public class CageChooseManager {
@@ -6,16 +7,23 @@ public class CageChooseManager {
     [Inject]
     private GameActionPerformer _performer;
 
+    [Inject]
+    private UnitsChooseManager _unitsChooseManager;
+
     private GameAction _gameAction;
 
-    public void ChooseCage(Cage cage) {
-        if (_gameAction == null)
-            return;
+    [Inject]
+    public void InjectGameLoop(GameLoop gameLoop) {
+        gameLoop.OnMoveEnded += CancelAction;
+    }
 
-        if (_gameAction.PossibleTargets.ToList().Contains(cage)) {
+    public void ChooseCage(Cage cage) {
+        if (_gameAction is not null && _gameAction.PossibleTargets.ToList().Contains(cage)) {
             _gameAction.Cage = cage;
             _performer.Perform(_gameAction);
             CancelAction();
+        } else if (cage.Unit != null) {
+            _unitsChooseManager.ChooseUnit(cage.Unit);
         }
     }
 
@@ -44,11 +52,17 @@ public class CageChooseManager {
     }
 
     private void MarkPossibleTargets() {
+        if (_gameAction == null) 
+            return;
+
         foreach (var cage in _gameAction.PossibleTargets) 
             cage.View.Mark();
     }
 
     private void UnmarkPossibleTargets() {
+        if (_gameAction == null) 
+            return;
+
         foreach (var cage in _gameAction.PossibleTargets)
             cage.View.Unmark();
     }

@@ -21,10 +21,19 @@ public class ColorSkillStatusIndicator : MonoBehaviour {
         gameObject.SetActive(false);
     }
 
+    private void OnEnable() {
+        Game.Loop.OnBattleActionHappened += SetState;
+    }
+
+    private void OnDisable() {
+        Game.Loop.OnBattleActionHappened -= SetState;
+    }
+
     public void SetSkill(UsableSkill skill) {
         _skill = skill;
         _skill.Cooldown.OnStateSet += SetState;
         SetState();
+
     }
 
     private void SetState() {

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -6,20 +7,18 @@ using UnityEngine.UI;
 public class SkillButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
     [SerializeField]
-    private Image _cooldownPanel;
+    private CooldownPanel _cooldownPanel;
 
     [SerializeField]
     private Image _image;
-
-    private Button _button;
-
-    private SpritesExtractor _spritesExtractor;
 
     [SerializeField]
     private Color _activeColor;
 
     [SerializeField]
     private Color _inactiveColor;
+
+    private Button _button;
 
     private UsableSkill _skill;
 
@@ -34,22 +33,23 @@ public class SkillButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         });
     }
 
-    public void SetSpriteExtractor(SpritesExtractor spriteExtractor) {
-        _spritesExtractor = spriteExtractor;
-    }
-
     public void SetSkill(UsableSkill skill) {
+        if (_button == null)
+            _button = GetComponent<Button>();
+
         _skill = skill;
         _image.sprite = _skill.Visual.Icon;
         _image.color = _skill.CanUse() ? _activeColor : _inactiveColor;
+        _button.interactable = _skill.CanUse();
+        _cooldownPanel.SetCooldown(skill.Cooldown);
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        Debug.Log(_skill.Visual.Description);
+        // TODO Show description
     }
 
     public void OnPointerExit(PointerEventData eventData) {
-        Debug.Log("Exited");
+        // TODO Hide description
     }
 
 }

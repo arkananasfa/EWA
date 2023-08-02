@@ -5,4 +5,13 @@ public enum UnitType {
 
     HellHound,
 
+    Rider,
+
+}
+
+public enum HeroType {
+
+    HolyPrincess,
+    LoneSamurai,
+
 }

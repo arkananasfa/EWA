@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 public class Skill : IGameEventHandler {
 
@@ -23,14 +22,24 @@ public class Skill : IGameEventHandler {
         owner = unit;
         Cooldown = cooldown;
         Code = code;
-        Visual = new SkillVisual(code, "no desc", Game.SpritesExtractor.GetSkillSprite(code));
+        Visual = GenerateVisual();
         // Todo add descs and translates for skills
 
         OnMoveStarted += () => cooldown.Decrease();
+
+        AddToUnit();
     }
 
     public virtual bool CanUse() {
-        return Cooldown.IsReady && Cooldown.IsReady;
+        return Cooldown.IsReady;
+    }
+
+    protected virtual SkillVisual GenerateVisual() {
+        return new SkillVisual(Code, "no desc", Game.SpritesExtractor.GetSkillSprite(Code));
+    }
+
+    protected virtual void AddToUnit() {
+        owner.AddPassiveSkill(this);
     }
 
 }

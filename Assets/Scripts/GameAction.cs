@@ -10,6 +10,10 @@ public class GameAction {
 
     public List<Cage> PossibleTargets { get; set; }
 
+    public override string ToString() {
+        return $"Action performing by {(Unit == null ? "player" : Unit.Name)} in [{Cage.X}, {Cage.Y}] with parameter {Parameter}";
+    }
+
 }
 
 public enum GameActionType {

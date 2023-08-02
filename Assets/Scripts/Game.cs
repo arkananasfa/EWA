@@ -2,33 +2,43 @@ using Zenject;
 
 public static class Game {
 
+    public static GameMode Mode { get; set; }
+
     //Teams
-    public static Team Team1;
-    public static Team Team2;
-    public static Team CurrentTeam;
+    public static Player Player1 { get; set; }
+    public static Player Player2 { get; set; }
+    public static Player CurrentPlayer { get; set; }
+    public static Team Team1 => Player1.Team;
+    public static Team Team2 => Player2.Team;
+    public static Team CurrentTeam => CurrentPlayer.Team;
 
     //Map
-    public static Map Map;
+    public static Map Map { get; set; }
 
     //Game
-    public static GameActionBuilder ActionBuilder;
-    public static UnitsFactory UnitsFactory;
-    public static CageChooseManager CageChooseManager;
-    public static GlobalUnitList GlobalUnitList;
-    public static GameLoop Loop;
+    public static NetworkManager Network { get; set; }
+    public static GameActionBuilder ActionBuilder { get; set; }
+    public static UnitsFactory UnitsFactory { get; set; }
+    public static CageChooseManager CageChooseManager { get; set; }
+    public static GlobalUnitList GlobalUnitList { get; set; }
+    public static GameLoop Loop { get; set; }
+
+    //Client settings
+    public static AudioManager AudioManager { get; set; }
 
     //Data extraction
-    public static SpritesExtractor SpritesExtractor;
-    public static UnitViewSpritesArchive UnitViewSpritesArchive;
+    public static SpritesExtractor SpritesExtractor { get; set; }
+    public static UnitsArchive UnitsArchive { get; set; }
+    public static HeroesArchive HeroesArchive;
 
     public static void CurrentTeamSwap() {
-        CurrentTeam = CurrentTeam == Team1 ? Team2 : Team1;
+        CurrentPlayer = CurrentPlayer == Player1 ? Player2 : Player1;
     }
     
     public static void ClearGame() {
-        Team1 = null;
-        Team2 = null;
-        CurrentTeam = null;
+        Player1 = null;
+        Player2 = null;
+        CurrentPlayer = null;
 
         Map = null;
 
@@ -37,9 +47,17 @@ public static class Game {
         CageChooseManager = null;
         GlobalUnitList = null;
         Loop = null;
-        SpritesExtractor = null;
 
-        UnitViewSpritesArchive = null;
+        SpritesExtractor = null;
+        UnitsArchive = null;
     }
+
+}
+
+public enum GameMode {
+
+    SinglePlayer,
+    HotSeat,
+    MultiPlayer
 
 }

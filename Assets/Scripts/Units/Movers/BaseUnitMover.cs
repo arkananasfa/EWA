@@ -1,11 +1,20 @@
 public abstract class BaseUnitMover : UsableSkill {
 
-    protected BaseUnitMover(Unit unit, string code, Cooldown cooldown) : base(unit, code, cooldown, GameActionType.Move) {
+    public bool IsMustMove;
+
+    protected BaseUnitMover(Unit unit, string code, Cooldown cooldown, bool isMustMove = true) : base(unit, code, cooldown, GameActionType.Move) {
         applyEffect += Move;
+        IsMustMove = isMustMove;
     }
 
-    public virtual void Move(Cage target) {
+    protected virtual void Move(Cage target) {
         owner.Cage = target;
+    }
+
+    public abstract int GetDistance();
+
+    protected override void AddToUnit() {
+        owner.SetMover(this);
     }
 
 }

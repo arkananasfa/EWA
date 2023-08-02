@@ -6,8 +6,17 @@ public class Cooldown {
 
     public readonly int Full;
 
-    public int Now { get; protected set; }
+    public int Now {
+        get => Math.Clamp(_now, 0, int.MaxValue);
+        set => _now = value;
+    }
     public virtual bool IsReady => Now <= 0;
+
+    #region Ready patterns
+    public static Cooldown NoCooldown => new Cooldown(0, 0);
+    #endregion
+
+    private int _now;
 
     public Cooldown(int full, int now = 0) {
         Full = full;

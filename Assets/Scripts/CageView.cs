@@ -66,9 +66,11 @@ public class CageView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
 
     public void OnPointerClick(PointerEventData eventData) {
-        Unmark();
-        OnPointerExit(eventData);
-        Game.CageChooseManager.ChooseCage(_context);
+        if (eventData.button == PointerEventData.InputButton.Left) {
+            Unmark();
+            OnPointerExit(eventData);
+            Game.CageChooseManager.ChooseCage(_context);
+        }
     } 
 
 }

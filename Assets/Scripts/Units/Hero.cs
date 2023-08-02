@@ -1,6 +1,6 @@
 public class Hero : Unit {
 
-    public Hero(int hp, HPInfluence damage, int armor, int resistance) : base(hp, damage, armor, resistance) {
+    public Hero(int hp, string name, HPInfluence damage, int armor, int resistance) : base(hp, name, damage, armor, resistance) {
     }
 
 }

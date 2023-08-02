@@ -38,7 +38,7 @@ public class ChargesCooldown : Cooldown {
         if (ChargesCount < MaxCharges) {
             Now--;
             if (Now <= 0) {
-                ChargesCount++;
+                ChargesCount+=AddByTime;
                 Now = Full;
             }
         } else {

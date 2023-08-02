@@ -28,6 +28,14 @@ public class HPInfluence {
         hpi.RangeType = range;
         return hpi;
     }
+    
+    public static HPInfluence NewHeal(decimal value, HealType type = HealType.Standard) {
+        var hpi = new HPInfluence();
+        hpi.Value = value;
+        hpi.Type = HPChangeType.Heal;
+        hpi.HealType = type;
+        return hpi;
+    }
 
 }
 

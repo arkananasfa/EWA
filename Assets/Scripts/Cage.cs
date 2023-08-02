@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -33,40 +34,40 @@ public class Cage {
     public Cage() { }
 
     public Cage Up(int i = 1) {
-        if (Y - i > -1) return null;
+        if (Y - i < 0) return null;
         return Game.Map.GetCage(X, Y - i);
     }
 
     public Cage Left(int i = 1) {
-        if (X - i > -1) return null;
+        if (X - i < 0) return null;
         return Game.Map.GetCage(X - i, Y);
     }
 
     public Cage Right(int i = 1) {
-        if (X + i < Game.Map.Width) return null;
+        if (X + i >= Game.Map.Width) return null;
         return Game.Map.GetCage(X + i, Y);
     }
 
 
     public Cage Down(int i = 1) {
-        if (Y + i < Game.Map.Height) return null;
+        if (Y + i >= Game.Map.Height) return null;
         return Game.Map.GetCage(X, Y + i);
     }
 
     public Cage Front(Team team, int i = 1) {
-        return team.frontDirection == 1 ? Down(i) : Up(i);
+        return GetCageIn(0, team.frontDirection * i);
     }
 
     public Cage Front(Unit unit, int i = 1) {
-        return unit.Team.frontDirection == 1 ? Down(i) : Up(i);
+        return GetCageIn(0, unit.Team.frontDirection * i);
     }
 
     public Cage Back(Team team, int i = 1) {
-        return team.frontDirection == 1 ? Up(i) : Down(i);
+        return GetCageIn(0, -team.frontDirection * i);
     }
 
     public Cage Back(Unit unit, int i = 1) {
-        return unit.Team.frontDirection == 1 ? Up(i) : Down(i);
+        return GetCageIn(0, -unit.Team.frontDirection * i);
     }
 
     public Cage GetCageIn(int x, int y) {
@@ -91,6 +92,30 @@ public class Cage {
         if (xx >= Game.Map.Width || xx < 0 || yy >= Game.Map.Height || yy < 0)
             return null;
         return Game.Map.GetCage(xx, yy);
+    }
+
+    public int Distance(Cage cage) {
+        return XDistance(cage) + YDistance(cage);
+    }
+
+    public int XDistance(Cage cage) {
+        return Math.Abs(cage.X - X);
+    }
+
+    public int YDistance(Cage cage) {
+        return Math.Abs(cage.Y - Y);
+    }
+
+    public int XDifference(Cage cage) {
+        return cage.X - X;
+    }
+
+    public int YDifference(Cage cage) {
+        return cage.Y - Y;
+    }
+
+    public bool IsInRadius(Cage other, int radius) {
+        return Math.Max(XDistance(other), YDistance(other)) <= radius;
     }
 
 }
