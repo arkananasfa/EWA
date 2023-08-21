@@ -2,16 +2,18 @@ using System.Collections.Generic;
 
 public class HeroAttacker : BaseUnitAttacker {
 
-    public HeroAttacker(Unit unit, int distance = 1, int times = 1) : base(unit,
+    public HeroAttacker(Unit unit, string attackCode, int distance = 1, int times = 1) : base(unit,
                          "HeroAttacker",
                          distance,
-                         new Cooldown(1, 1)) {
+                         new Cooldown(1, 1),
+                         attackCode) {
     }
 
-    public HeroAttacker(Unit unit, string code, int distance = 1, int times = 1) : base(unit,
+    public HeroAttacker(Unit unit, string code, string attackCode, int distance = 1, int times = 1) : base(unit,
                          code,
                          distance,
-                         new Cooldown(1, 1)) {
+                         new Cooldown(1, 1),
+                         attackCode) {
     }
 
     protected override List<Cage> GetPossibleCages() {

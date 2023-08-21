@@ -18,7 +18,7 @@ public class Team {
     public Team(int frontDirection) { 
         this.frontDirection = frontDirection;
         rightDirection = -frontDirection;
-        HomeY = frontDirection == -1 ? Game.Map.Height - 1 : 0;
+        HomeY = frontDirection == -1 ? 7 : 0;
         _units = new List<Unit>();
     }
 
@@ -37,7 +37,7 @@ public class Team {
         sortedUnits.ToList().ForEach(unit => {
             if (unit.Mover.IsMustMove)
                 while (unit.Mover.CanUse())
-                    unit.Mover.Use();
+                    unit.Mover.Use(false);
         });
     }
 

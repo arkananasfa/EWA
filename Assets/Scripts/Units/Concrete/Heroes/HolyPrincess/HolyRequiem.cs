@@ -8,10 +8,12 @@ public class HolyRequiem : ActiveSkill {
 
     private void CastRequiem(Cage cage) {
         Unit unit = cage.Unit;
-        Effect effect = new Effect(unit, "HolyRequiem", 3);
+        soundNumber = unit == owner ? 0 : 1;
+        Effect effect = new Effect(unit, "HolyRequiem", 3, Effect.Power.Strong, Effect.Purpose.Good).WithVisual();
         effect.OnPreApplyHpInfluence += (damager, victim, hpInfluence) => {
             if (victim == unit && hpInfluence.Type == HPChangeType.Damage) {
                 hpInfluence.IsBlocked = true;
+                effect.UseVisual();
             }
         };
     }

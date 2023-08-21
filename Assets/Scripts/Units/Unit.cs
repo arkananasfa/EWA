@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class Unit { 
 
-    public UnitView View { get; private set; }
+    public UnitView View { get; protected set; }
 
-    public string Name { get; private set; }
+    public string Code { get; private set; }
+    public string Name { get; protected set; }
 
     public Player Player { get; set; }
     public Team Team { get; set; }
@@ -23,11 +25,12 @@ public abstract class Unit {
                     Game.Loop.UnitDied(this);
                 } else {
                     Cage from = _cage;
-                    from.Unit = null;
                     _cage = value;
-                    _cage.Unit = this;
+                    _cage.Unit = from.Unit;
+                    from.Unit = null;
                     Game.Loop.UnitMoved(this, from, value);
-                    View.Move(value);
+                    if (View != null)
+                        View.Move(value);
                 }
             }
             _cage = value;
@@ -82,12 +85,16 @@ public abstract class Unit {
     private Cage _cage;
     private decimal _hp;
 
+    private AudioSource _takeDamageSound;
+    private AudioSource _deathSound;
+
     public Unit(int hp, string name, HPInfluence damage, int armor, int resistance) {
         ActiveSkills = new();
         PassiveSkills = new();
         Effects = new();
 
         Name = name;
+        Code = name;
         MaxHP = hp;
         HP = hp;
         Damage = damage;
@@ -130,6 +137,7 @@ public abstract class Unit {
             Cage.Unit = this;
             View = CreateView(Cage.View);
             View.SetUnit(this);
+            CreateSounds();
         }
     }
 
@@ -150,6 +158,9 @@ public abstract class Unit {
             actualNumber = Math.Round(actualNumber, 1);
             HP -= actualNumber;
 
+            if (_takeDamageSound != null)
+                _takeDamageSound.Play();
+            
             hpChangeCopy.Value = actualNumber;
             Game.Loop.HpInfluenceApplied(from, this, hpChangeCopy);
         } else {
@@ -163,10 +174,12 @@ public abstract class Unit {
     }
 
     public virtual void Die() {
-        Debug.Log($"{Name} died:(");
+        if (_deathSound != null)
+            _deathSound.Play();
+
         Cage.Unit = null;
         Team.RemoveUnit(this);
-        UnityEngine.Object.Destroy(View.gameObject);
+        View.Kill();
         Game.Loop.UnitDied(this);
     }
 
@@ -181,6 +194,43 @@ public abstract class Unit {
     public bool HasEffect(string effectName) {
         Effect effect = Effects.Find(e => e.Code == effectName);
         return effect != null;
+    }
+
+    public void TryRemoveEffect(string effectName) {
+        if (!HasEffect(effectName))
+            return;
+
+        Effect effect = Effects.Where(e => e.Code == effectName).First();
+        effect.EndEffect();
+    }
+
+    public void UseDispel(Effect.Power power, Effect.DispelType dispelType) {
+        foreach (Effect effect in Effects) {
+            if (effect.PowerType <= power) {
+                if (dispelType == Effect.DispelType.Both ||
+                   (effect.PurposeType == Effect.Purpose.Good && dispelType == Effect.DispelType.Good) ||
+                   (effect.PurposeType == Effect.Purpose.Bad && dispelType == Effect.DispelType.Bad)) 
+                {
+                    effect.EndEffect();
+                }
+            }
+        }
+    }
+
+    protected virtual void CreateSounds() {
+        var takeDamageClips = Game.SoundsExtractor.GetSounds(this, "TakeDamage");
+        if (takeDamageClips.Count>0) {
+            _takeDamageSound = View.gameObject.AddComponent<AudioSource>();
+            _takeDamageSound.clip = takeDamageClips[0];
+        }
+        var deathClips = Game.SoundsExtractor.GetSounds(this, "Death");
+        if (deathClips.Count > 0) {
+            _deathSound = View.gameObject.AddComponent<AudioSource>();
+            _deathSound.clip = deathClips[0];
+        }
+        Mover.ImplementSounds();
+        Attacker.ImplementSounds();
+        ActiveSkills.ForEach(skill => skill.ImplementSounds());
     }
 
     private UnitView CreateView(CageView View) {

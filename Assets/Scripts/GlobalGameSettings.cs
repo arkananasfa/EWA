@@ -1,9 +1,12 @@
 public static class GlobalGameSettings {
 
-    public static int MaxGold;
-    public static int GoldPerRound;
-    public static int StartGold;
+    public static Player Player1;
+    public static Player Player2;
 
-    public static int MaxHP;
+    public static bool IsHeroPickingActive;
+    public static HeroType HeroType1;
+    public static HeroType HeroType2;
+
+    public static GameMode GameMode;
 
 }

@@ -27,7 +27,7 @@ public class CageChooseManager {
         }
     }
 
-    public void SetAction(GameAction gameAction) {
+    public void SetAction(GameAction gameAction, bool network = true) {
         if (gameAction.PossibleTargets.Count == 0)
             return;
 
@@ -35,7 +35,7 @@ public class CageChooseManager {
 
         if (gameAction.PossibleTargets.Count == 1) {
             gameAction.Cage = gameAction.PossibleTargets.First();
-            _performer.Perform(gameAction);
+            _performer.Perform(gameAction, network);
             CancelAction();
         } else {
             _gameAction = gameAction;

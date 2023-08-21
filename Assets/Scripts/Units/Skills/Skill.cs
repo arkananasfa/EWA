@@ -35,7 +35,8 @@ public class Skill : IGameEventHandler {
     }
 
     protected virtual SkillVisual GenerateVisual() {
-        return new SkillVisual(Code, "no desc", Game.SpritesExtractor.GetSkillSprite(Code));
+        NameDescriptionJSON visualJSON = LanguageManager.GetSkillVisual(Code);
+        return new SkillVisual(visualJSON.Name, visualJSON.Description, Game.SpritesExtractor.GetSkillSprite(Code));
     }
 
     protected virtual void AddToUnit() {

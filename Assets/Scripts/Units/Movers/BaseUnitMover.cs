@@ -5,6 +5,7 @@ public abstract class BaseUnitMover : UsableSkill {
     protected BaseUnitMover(Unit unit, string code, Cooldown cooldown, bool isMustMove = true) : base(unit, code, cooldown, GameActionType.Move) {
         applyEffect += Move;
         IsMustMove = isMustMove;
+        audioName = "Move";
     }
 
     protected virtual void Move(Cage target) {

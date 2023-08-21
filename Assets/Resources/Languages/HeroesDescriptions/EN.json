@@ -1,0 +1,14 @@
+{
+  "Items": [
+    {
+      "Code": "HolyPrincess",
+      "Name": "Holy princess",
+      "Description": "As a dother of the overthrowed king, now she is fighting on the side of their old enemies"
+    },
+    {
+      "Code": "LoneSamurai",
+      "Name": "Lone samurai",
+      "Description": "Cursed by his own nation, he walks around the world in search of the justice"
+    }
+  ]
+}

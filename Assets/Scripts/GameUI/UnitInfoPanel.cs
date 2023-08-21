@@ -68,7 +68,7 @@ public class UnitInfoPanel : MonoBehaviour {
         SetSprite(unit.View.Sprite);
     }
 
-    public void SetUnitWithoutSprite(Unit unit) {
+    public void SetUnitWithoutSprite(Unit unit, bool overview = false) {
         Show();
 
         _nameText.text = unit.Name;
@@ -93,7 +93,7 @@ public class UnitInfoPanel : MonoBehaviour {
 
         foreach (var skill in unit.BasicSkills) {
             var skillIcon = Instantiate(_skillIconPrefab, _skillsIconsParent);
-            skillIcon.SetSkill(skill);
+            skillIcon.SetSkill(skill, overview);
         }
 
         foreach (var effect in unit.Effects) {

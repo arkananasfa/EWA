@@ -36,10 +36,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 90, y: 90}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4686979620897098706
 CanvasRenderer:
@@ -94,6 +94,7 @@ MonoBehaviour:
   _moveIndicator: {fileID: 9208254702748822483}
   _attackIndicator: {fileID: 1323265060478786872}
   _spriteMoveTime: 0.2
+  _spriteDieTime: 0.6
 --- !u!1001 &4070325780037173329
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,0 +1,84 @@
+{
+  "Items": [
+    {
+      "Code": "DeathPromise",
+      "Name": "Death promise",
+      "Description": "Throw a sign to enemy in radius 3. If enemy has it, tsunami strike is dealing full damage to it."
+    },
+    {
+      "Code": "LightningBlink",
+      "Name": "Lightning blink",
+      "Description": "Move through enemy and deal normal damage to it."
+    },
+    {
+      "Code": "ElderSamuraiForm",
+      "Name": "Elder samurai form",
+      "Description": "Activates demon's blood in his body. Regenerates all hp and increase armor and magic resist by 3 for 4 moves."
+    },
+    {
+      "Code": "TsunamiStrike",
+      "Name": "Tsunami strike",
+      "Description": "When dealing damage to enemy, also deal 1/3 damage to enemies in 4 neighbor cages. If enemy has 'Death promise' effect, they take full damage."
+    },
+    {
+      "Code": "HolyBlessing",
+      "Name": "Holy blessing",
+      "Description": "Heal ally by 15 hp. If target is herself healing is increased to 30 hp."
+    },
+    {
+      "Code": "HolyPunishment",
+      "Name": "Holy punishment",
+      "Description": "The heaven starts to keep an eye on the one enemy. If they dealing damage, they take the same damage as absolute."
+    },
+    {
+      "Code": "HolyShield",
+      "Name": "Holy shield",
+      "Description": "All allies in radius 2 taking 20% less damage."
+    },
+    {
+      "Code": "HolyRequiem",
+      "Name": "Holy requiem",
+      "Description": "Make ally immune to any damage for 3 moves."
+    },
+    {
+      "Code": "Frenzy",
+      "Name": "Frenzy",
+      "Description": "After each attack, increase damage by 3."
+    },
+    {
+      "Code": "DeathPromiseEffect",
+      "Name": "Death promise effect",
+      "Description": "Take full damage from TsunamiStrike."
+    },
+    {
+      "Code": "ElderSamuraiFormEffect",
+      "Name": "Elder samurai form effect",
+      "Description": "Increase armor and magic resist by 3."
+    },
+    {
+      "Code": "HolyPunishmentEffect",
+      "Name": "Holy punishment effect",
+      "Description": "When dealing damage take the same as enemy lost."
+    },
+    {
+      "Code": "HolyRequiemEffect",
+      "Name": "Holy requiem effect",
+      "Description": "Unit is immune to any damage."
+    },
+    {
+      "Code": "SummonMeleeImp",
+      "Name": "Summon melee imp",
+      "Description": "Summoning imp with 8 damage, 24 hp and 2 armor."
+    },
+    {
+      "Code": "SummonRangedImp",
+      "Name": "Summon ranged imp",
+      "Description": "Summoning imp with 10 damage, 16 hp, 1 armor and 1 magic resist."
+    },
+    {
+      "Code": "SummonMageImp",
+      "Name": "Summon mage imp",
+      "Description": "Summoning imp with 12 damage 10 hp and 2 magic resist."
+    }
+  ]
+}

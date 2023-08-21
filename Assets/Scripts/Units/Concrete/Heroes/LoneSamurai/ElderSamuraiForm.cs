@@ -8,7 +8,7 @@ public class ElderSamuraiForm : ActiveSkill {
 
     private void CastDeathPromise(Cage cage) {
         owner.HP = owner.MaxHP;
-        Effect effect = new Effect(owner, "ElderSamuraiForm", 4, () => {
+        Effect effect = new Effect(owner, "ElderSamuraiForm", 4, Effect.Power.Undispellable, Effect.Purpose.Good, () => {
             owner.HP = owner.MaxHP;
             owner.Armor += 3;
             owner.Resistance += 3;

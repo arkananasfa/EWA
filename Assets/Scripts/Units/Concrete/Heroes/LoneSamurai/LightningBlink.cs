@@ -19,7 +19,7 @@ public class LightningBlink : ActiveSkill {
         var unit = isXDiff ? owner.Cage.GetCageIn(xDiff, 0).Unit : owner.Cage.GetCageIn(0, yDiff).Unit;
         unit.ApplyHPChange(owner, owner.Damage);
         _attackedUnits.Add(unit);
-        owner.Mover.Apply(cage);
+        owner.Cage = cage;
     }
 
     private void ClearAttackedEnemies() {

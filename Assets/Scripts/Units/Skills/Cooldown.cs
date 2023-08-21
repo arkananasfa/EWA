@@ -42,4 +42,8 @@ public class Cooldown {
         OnStateSet?.Invoke();
     }
 
+    public override string ToString() {
+        return $"Cooldown: {Full}";
+    }
+
 }

@@ -8,7 +8,8 @@ public class DeathPromise : ActiveSkill {
 
     private void CastDeathPromise(Cage cage) {
         Unit unit = cage.Unit;
-        Effect effect = new Effect(unit, "DeathPromise", 5);
+        unit.TryRemoveEffect("DeathPromise");
+        Effect effect = new Effect(unit, "DeathPromise", 5, Effect.Power.Weak, Effect.Purpose.Bad).WithVisual();
     }
 
     protected override List<Cage> GetPossibleCages() {

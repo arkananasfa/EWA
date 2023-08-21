@@ -13,6 +13,10 @@ public class BuyButton : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI _priceText;
 
+    [SerializeField]
+    private TextMeshProUGUI _nameText;
+
+    [SerializeField]
     private UnitInfoPanel _unitInfoPanel;
 
     private Button _button;
@@ -20,16 +24,26 @@ public class BuyButton : MonoBehaviour {
 
     private Player _playerSubscribed;
 
-    public void Init(UnitType unitType, UnitInfoPanel infoPanel) {
+    private bool _isSubscribed = false;
+
+    public void Init(UnitType unitType) {
+        if (_isSubscribed) {
+            UnsubscribedFromPlayer();
+            Game.Loop.OnMoveStarted -= ChangeSubscribedPlayer;
+        }
+        gameObject.SetActive(true);
+
         var archiveElement = Game.UnitsArchive.GetElementByUnitType(unitType);
 
         _unitType = archiveElement.unitType;
         _unitImage.sprite = archiveElement.sprite;
         _price = archiveElement.price;
         _priceText.text = _price.ToString();
+        _nameText.text = unitType.ToString();
+        
+        if (_button == null)
+            _button = gameObject.GetComponent<Button>();
 
-        _unitInfoPanel = infoPanel;
-        _button = gameObject.AddComponent<Button>();
         _button.onClick.AddListener(() => {
             GameAction gameAction = Game.ActionBuilder.CreateBuyAction(_unitType);
             Game.CageChooseManager.SetAction(gameAction);
@@ -37,13 +51,25 @@ public class BuyButton : MonoBehaviour {
             _unitInfoPanel.SetUnitWithoutSprite(unit);
             _unitInfoPanel.SetSprite(_unitImage.sprite);
         });
+
+        _isSubscribed = true;
         _playerSubscribed = Game.CurrentPlayer;
         SubscribeToPlayer();
         Game.Loop.OnMoveStarted += ChangeSubscribedPlayer;
     }
 
+    public void Hide() {
+        if (_isSubscribed) {
+            UnsubscribedFromPlayer();
+            Game.Loop.OnMoveStarted -= ChangeSubscribedPlayer;
+        }
+        _isSubscribed = false;
+        gameObject.SetActive(false);
+    }
+
     private void ChangeSubscribedPlayer() {
-        _playerSubscribed.OnGoldChanged -= CheckIsGoldEnough;
+        if (_playerSubscribed != null)
+            _playerSubscribed.OnGoldChanged -= CheckIsGoldEnough;
         SubscribeToPlayer();
     }
 
@@ -52,8 +78,13 @@ public class BuyButton : MonoBehaviour {
         Game.CurrentPlayer.OnGoldChanged += CheckIsGoldEnough;
     }
 
+    private void UnsubscribedFromPlayer() {
+        if (_playerSubscribed != null)
+            _playerSubscribed.OnGoldChanged -= CheckIsGoldEnough;
+    }
+
     private void CheckIsGoldEnough() {
-        _button.interactable = Game.CurrentPlayer.Gold >= _price;
+        _button.interactable = Game.CurrentPlayer.Gold >= _price && Game.Network.IsPlayersTurn();
     }
 
 }

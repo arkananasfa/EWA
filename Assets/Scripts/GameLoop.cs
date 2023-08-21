@@ -24,7 +24,7 @@ public class GameLoop {
         foreach (var unit in Game.CurrentTeam.Units) {
             unit.Skills.ForEach(skill => skill.OnMoveEnded?.Invoke());
         }
-        Game.CurrentPlayer.Gold += GlobalGameSettings.GoldPerRound;
+        Game.CurrentPlayer.Gold += Game.CurrentPlayer.GoldPerRound;
         Game.CurrentTeam.ApplyEndMoveMoving();
         OnMoveEnded?.Invoke();
         Game.CurrentTeamSwap();

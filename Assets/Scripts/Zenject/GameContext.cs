@@ -21,7 +21,7 @@ public class GameContext : MonoInstaller {
 
     [SerializeField]
     private Transform _unitsParent;
-
+    
     [Space(10)]
 
     [Header("Teams settings")]
@@ -37,8 +37,31 @@ public class GameContext : MonoInstaller {
     [SerializeField]
     private PlayerUI _player2UI;
 
+    [SerializeField]
+    private Sprite _defaultPlayer1Sprite;
+
+    [SerializeField]
+    private Sprite _defaultPlayer2Sprite;
+
     public override void InstallBindings() {
-        TestGameSetup();
+        LanguageManager.Init();
+
+        Game.Mode = GlobalGameSettings.GameMode;
+        if (GlobalGameSettings.Player1 == null)
+            SetDefaultPlayers();
+        else {
+            Game.Player1 = GlobalGameSettings.Player1;
+            Game.Player2 = GlobalGameSettings.Player2;
+        }
+        Game.CurrentPlayer = Game.Player1;
+
+        Team team1 = new Team(-1);
+        Team team2 = new Team(1);
+        team1.Color = _team1Color;
+        team2.Color = _team2Color;
+
+        Game.Player1.Team = team1;
+        Game.Player2.Team = team2;
 
         // Bind GlobalUnitList
         GlobalUnitList globalUnitList = new GlobalUnitList();
@@ -61,7 +84,7 @@ public class GameContext : MonoInstaller {
         Container.BindInstance(unitsChooseManager).AsSingle();
 
         // Bind GameActionPerformer
-        GameActionPerformer gameActionPerformer = new GameActionPerformer();
+        GameActionPerformer gameActionPerformer = CreateGameActionPerformer();
         Container.BindInstance(gameActionPerformer).AsSingle();
 
         // Bind GameActionBuilder
@@ -73,7 +96,7 @@ public class GameContext : MonoInstaller {
         Container.BindInstance(unitsFactory).AsSingle();
 
         // Bind NetworkManager
-        NetworkManager networkManager = new NetworkManager();
+        NetworkController networkManager = new NetworkController();
         Container.BindInstance(networkManager).AsSingle();
 
         // Bind AudioManager
@@ -90,6 +113,10 @@ public class GameContext : MonoInstaller {
         SpritesExtractor spritesExtractor = new SpritesExtractor();
         Container.BindInstance(spritesExtractor).AsSingle();
 
+        // Bind SoundsExtractor
+        SoundsExtractor soundsExtractor = new();
+        Container.BindInstance(soundsExtractor).AsSingle();
+
         Container.QueueForInject(globalUnitList);
         Container.QueueForInject(gameLoop);
         Container.QueueForInject(gameActionPerformer);
@@ -100,59 +127,45 @@ public class GameContext : MonoInstaller {
 
         Game.GlobalUnitList = globalUnitList;
         Game.CageChooseManager = cageChooseManager;
+        Game.GameActionPerformer = gameActionPerformer;
         Game.ActionBuilder = gameActionBuilder;
         Game.UnitsFactory = unitsFactory;
         Game.Map = map;
         Game.Loop = gameLoop;
         Game.SpritesExtractor = spritesExtractor;
+        Game.SoundsExtractor = soundsExtractor;
         Game.Network = networkManager;
         Game.AudioManager = audioManager;
         Game.UnitsArchive = FindObjectOfType<UnitsArchive>();
         Game.HeroesArchive = FindObjectOfType<HeroesArchive>();
+        Game.FractionsArchive = FindObjectOfType<FractionsArchive>();
+        Game.DescriptionPanel = FindObjectOfType<DescriptionPanel>();
 
-        GameSetup();
+        _player1UI.SetPlayer(Game.Player1);
+        _player2UI.SetPlayer(Game.Player2);
     }
 
-    private void TestGameSetup() {
-        GlobalGameSettings.MaxHP = 100;
-        GlobalGameSettings.MaxGold = 200;
-        GlobalGameSettings.GoldPerRound = 50;
-        GlobalGameSettings.StartGold = 60;
+    private void SetDefaultPlayers() {
+        GlobalGameSettings.IsHeroPickingActive = true;
+        Game.Mode = GameMode.HotSeat;
+        Game.Player1 = new Player("DungeonMaster");
+        Game.Player2 = new Player("Slave");
+        Game.Player1.HeroStartCageX = 0;
+        Game.Player2.HeroStartCageX = 7;
+        Game.Player1.HeroStartCageY = 6;
+        Game.Player2.HeroStartCageY = 1;
+        _player1UI.SetAvatar(_defaultPlayer1Sprite);
+        _player2UI.SetAvatar(_defaultPlayer2Sprite);
     }
 
     private Map CreateMap() {
         return new Map(_width, _height, _cagesParent, _cageViewPrefab);
     }
 
-    private void GameSetup() {
-        Player player1 = new Player("Валерій Залужний");
-        Player player2 = new Player("Попуск");
-        Game.CurrentPlayer = player1;
-        Game.Player1 = player1;
-        Game.Player2 = player2;
-
-        Team team1 = new Team(-1);
-        Team team2 = new Team(1);
-        team1.Color = _team1Color;
-        team2.Color = _team2Color;
-
-        player1.Team = team1;
-        player2.Team = team2;
-
-        _player1UI.SetPlayer(player1);
-        _player2UI.SetPlayer(player2);
-
-        Game.Mode = GameMode.HotSeat;
-
-        SpawnHero(Game.Map.GetCage(0, 6), HeroType.HolyPrincess, player1);
-        SpawnHero(Game.Map.GetCage(7, 1), HeroType.LoneSamurai, player2);
-    }
-
-    private void SpawnHero(Cage cage, HeroType heroType, Player player) {
-        Hero h = Game.UnitsFactory.CreateHero(heroType);
-        h.Cage = cage;
-        var archiveElement = Game.HeroesArchive.GetElementByUnitType(heroType);
-        h.Init(archiveElement.sprite, cage, player);
+    private GameActionPerformer CreateGameActionPerformer() {
+        if (Game.Mode == GameMode.Multiplayer)
+            return new MultiplayerGameActionPerformer();
+        return new GameActionPerformer();
     }
 
 }

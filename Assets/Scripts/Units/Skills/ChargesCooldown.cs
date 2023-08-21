@@ -47,4 +47,8 @@ public class ChargesCooldown : Cooldown {
         StateSet();
     }
 
+    public override string ToString() {
+        return $"Cooldown: {Full}, Max charges: {MaxCharges}";
+    }
+
 }

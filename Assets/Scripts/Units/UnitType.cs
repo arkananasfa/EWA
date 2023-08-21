@@ -7,6 +7,11 @@ public enum UnitType {
 
     Rider,
 
+    Invoker,
+    MeleeImp,
+    RangedImp,
+    MageImp
+
 }
 
 public enum HeroType {

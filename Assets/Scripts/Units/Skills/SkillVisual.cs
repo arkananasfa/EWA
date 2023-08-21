@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class SkillVisual {
 
@@ -21,5 +22,19 @@ public class SkillVisual {
         Icon = null;
         IsVisible = false;
     }
+
+    public SkillVisual(NameDescriptionJSON visualJSON) {
+        Name = visualJSON.Name;
+        Description = visualJSON.Description;
+    }
+
+}
+
+[Serializable]
+public class NameDescriptionJSON {
+
+    public string Code;
+    public string Name;
+    public string Description;
 
 }

@@ -8,12 +8,13 @@ public class HolyPunishment : ActiveSkill {
 
     private void CastPunishment(Cage cage) {
         Unit unit = cage.Unit;
-        Effect effect = new Effect(unit, "HolyPunishment", 2);
+        Effect effect = new Effect(unit, "HolyPunishment", 2, Effect.Power.Weak, Effect.Purpose.Bad).WithVisual();
         effect.OnHpInfluenceApplied += (damager, victim, hpInfluence) => {
             if (damager == unit && hpInfluence.Type == HPChangeType.Damage) {
                 HPInfluence copy = hpInfluence.Copy();
                 copy.DamageType = DamageType.Absolute;
                 damager.ApplyHPChange(owner, copy);
+                effect.UseVisual();
             }
         };
     }

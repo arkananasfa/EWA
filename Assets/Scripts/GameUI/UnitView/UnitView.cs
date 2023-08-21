@@ -16,6 +16,9 @@ public class UnitView : MonoBehaviour {
     [SerializeField]
     private float _spriteMoveTime;
 
+    [SerializeField]
+    private float _spriteDieTime;
+
     private Unit _context;
     private Image _image;
 
@@ -53,6 +56,10 @@ public class UnitView : MonoBehaviour {
         StartCoroutine(MoveRoutine());
     }
 
+    public void Kill() {
+        StartCoroutine(DeathRoutine());
+    }
+
     public void ChangeIndicatorsVisibility(bool isVisible) {
         _moveIndicator.gameObject.SetActive(isVisible);
         _attackIndicator.gameObject.SetActive(isVisible);
@@ -85,6 +92,16 @@ public class UnitView : MonoBehaviour {
         } else {
             Destroy(gameObject);
         }
+    }
+
+    protected virtual IEnumerator DeathRoutine() {
+        float time = 0;
+        while (time < _spriteDieTime) {
+            time += Time.deltaTime;
+            _image.ChangeAlpha(Mathf.Lerp(1f, 0f, time/_spriteDieTime));
+            yield return null;
+        }
+        Destroy(gameObject);
     }
 
 }

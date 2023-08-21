@@ -8,6 +8,11 @@ public class UnitsFactory {
             UnitType.Archer => new Archer(),
             UnitType.HellHound => new HellHound(),
             UnitType.Rider => new HorseRider(),
+            UnitType.Invoker => new Invoker(),
+            
+            UnitType.MeleeImp => new MeleeImp(),
+            UnitType.RangedImp => new RangedImp(),
+            UnitType.MageImp => new MageImp(),
             _ => new HellHound()
         };
     }

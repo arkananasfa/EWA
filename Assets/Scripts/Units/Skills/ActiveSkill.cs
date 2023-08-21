@@ -20,4 +20,9 @@ public class ActiveSkill : UsableSkill {
         owner.AddActiveSkill(this);
     }
 
+    protected override SkillVisual GenerateVisual() {
+        NameDescriptionJSON visualJSON = LanguageManager.GetSkillVisual(Code);
+        return new SkillVisual(visualJSON.Name, visualJSON.Description, Game.SpritesExtractor.GetSkillSprite(Code));
+    }
+
 }

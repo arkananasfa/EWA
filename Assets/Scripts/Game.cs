@@ -16,10 +16,11 @@ public static class Game {
     public static Map Map { get; set; }
 
     //Game
-    public static NetworkManager Network { get; set; }
+    public static NetworkController Network { get; set; }
     public static GameActionBuilder ActionBuilder { get; set; }
     public static UnitsFactory UnitsFactory { get; set; }
     public static CageChooseManager CageChooseManager { get; set; }
+    public static GameActionPerformer GameActionPerformer { get; set; }
     public static GlobalUnitList GlobalUnitList { get; set; }
     public static GameLoop Loop { get; set; }
 
@@ -28,8 +29,12 @@ public static class Game {
 
     //Data extraction
     public static SpritesExtractor SpritesExtractor { get; set; }
+    public static SoundsExtractor SoundsExtractor { get; set; }
     public static UnitsArchive UnitsArchive { get; set; }
-    public static HeroesArchive HeroesArchive;
+    public static HeroesArchive HeroesArchive { get; set; }
+    public static FractionsArchive FractionsArchive { get; set; }
+
+    public static DescriptionPanel DescriptionPanel { get; set; }
 
     public static void CurrentTeamSwap() {
         CurrentPlayer = CurrentPlayer == Player1 ? Player2 : Player1;
@@ -50,14 +55,17 @@ public static class Game {
 
         SpritesExtractor = null;
         UnitsArchive = null;
+
+        Player1.EndGame();
+        Player2.EndGame();
     }
 
 }
 
 public enum GameMode {
 
-    SinglePlayer,
+    Singleplayer,
     HotSeat,
-    MultiPlayer
+    Multiplayer
 
 }

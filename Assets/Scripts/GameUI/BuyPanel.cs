@@ -13,7 +13,7 @@ public class BuyPanel : MonoBehaviour {
     private void Start() {
         foreach (UnitType unitType in Enum.GetValues(typeof(UnitType))) {
             BuyButton buyButton = Instantiate(_buyButton, transform);
-            buyButton.Init(unitType, _unitInfoPanel);
+            //buyButton.Init(unitType, _unitInfoPanel);
         }
     }
 

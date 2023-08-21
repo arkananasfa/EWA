@@ -17,4 +17,17 @@ public class SpritesExtractor {
         return sprite;
     }
 
+    public GameObject GetEffectVisual(string code) {
+        var visual = Resources.Load<GameObject>($"EffectsVisuals/{code}");
+        if (visual is null)
+            throw new Exception($"No effect's visual with code {code}");
+        return visual;
+    }
+
+    internal GameObject GetAttackVisual(string code) {
+        var visual = Resources.Load<GameObject>($"AttackVisuals/{code}");
+        if (visual is null)
+            throw new Exception($"No attack's visual with code {code}");
+        return visual;
+    }
 }
