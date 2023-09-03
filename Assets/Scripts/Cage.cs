@@ -106,6 +106,10 @@ public class Cage {
         return Math.Abs(cage.Y - Y);
     }
 
+    public (int, int) Difference(Cage cage) {
+        return (cage.X - X, cage.Y - Y); 
+    }
+
     public int XDifference(Cage cage) {
         return cage.X - X;
     }

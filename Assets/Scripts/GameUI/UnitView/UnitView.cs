@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,7 +57,23 @@ public class UnitView : MonoBehaviour {
         StartCoroutine(MoveRoutine());
     }
 
-    public void Kill() {
+    public void Move(CageView cage, float wait, float time) {
+        StartCoroutine(MoveRoutine(cage, wait, time));
+    }
+
+    public virtual void UpdateStatus() {
+        if (_context != null) {
+            UpdateHP((float)(_context.HP / _context.MaxHP));
+        } else {
+            Kill();
+        }
+    }
+
+    protected void UpdateHP(float percent) {
+        //...
+    }
+
+    protected void Kill() {
         StartCoroutine(DeathRoutine());
     }
 
@@ -91,6 +108,23 @@ public class UnitView : MonoBehaviour {
             transform.localPosition = Vector3.zero;
         } else {
             Destroy(gameObject);
+        }
+    }
+
+    protected virtual IEnumerator MoveRoutine(CageView cage, float wait, float allTime) {
+        yield return new WaitForSeconds(wait);
+        transform.SetParent(cage.transform);
+        var moveVector = -transform.localPosition;
+        transform.SetParent(_canvas.transform);
+        float time = 0;
+        while (time < allTime) {
+            time += Time.deltaTime;
+            transform.localPosition += moveVector * Time.deltaTime / allTime;
+            yield return null;
+        }
+        if (_context != null) {
+            transform.SetParent(_context.Cage.View.transform);
+            transform.localPosition = Vector3.zero;
         }
     }
 

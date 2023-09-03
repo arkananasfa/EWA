@@ -1,16 +1,36 @@
 public enum UnitType {
 
-    Swordsman,
-    Archer,
+    // People
+    Swordsman = 10,
+    Archer = 20,
 
-    HellHound,
+    // Demons
+    HellHound = 110,
 
-    Rider,
+    Invoker = 130,
+    MeleeImp = 131,
+    RangedImp = 132,
+    MageImp = 133,
 
-    Invoker,
-    MeleeImp,
-    RangedImp,
-    MageImp
+    // Undeads
+    Butcher = 210,
+
+    // Mages
+
+    // Druids
+
+    // Wanderers
+    Rider = 510,
+
+    // Hunters
+    Raptor = 610,
+
+    // Water
+
+    // Mechanics
+    Sniper = 810,
+
+    // RuneReaders
 
 }
 

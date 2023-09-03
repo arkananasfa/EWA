@@ -47,8 +47,11 @@ public class SkillIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 _chargesPanel.SetActive(true);
                 _chargesText.text = chargesCooldown.ChargesCount.ToString();
             }
-            if (!overview)
+            if (!overview) {
                 _darkPanel.SetActive(!skill.CanUse());
+            } else {
+                _darkPanel.SetActive(!skill.Cooldown.IsReady);
+            }
         } else if (skill is Effect effect) {
             _cooldownPanel.SetActive(true);
             _cooldownText.text = effect.Duration.ToString();

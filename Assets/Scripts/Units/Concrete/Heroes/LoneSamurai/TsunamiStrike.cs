@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using static UnityEngine.GraphicsBuffer;
 
 public class TsunamiStrike : Skill {
 
@@ -22,10 +23,13 @@ public class TsunamiStrike : Skill {
             }
             Cooldown.Use();
             foreach (var unit in enemiesAttacked) {
-                if (unit.HasEffect("DeathPromise"))
-                    unit.ApplyHPChange(owner, owner.Damage);
-                else
-                    unit.ApplyHPChange(owner, HPInfluence.NewDamage(owner.Damage.Value / noDeathPromiseDamageReduction, DamageType.Physical, RangeType.Melee));
+                if (unit.HasEffect("DeathPromise")) {
+                    AnimationSequence.Add(AnimatedObject.CreateInSequenceAttackProjectile(defender.Cage, unit.Cage, "SamuraiSword"),
+                    () => unit.ApplyHPChange(owner, owner.Damage));
+                } else {
+                    AnimationSequence.Add(AnimatedObject.CreateInSequenceAttackProjectile(defender.Cage, unit.Cage, "SamuraiSword"),
+                    () => unit.ApplyHPChange(owner, HPInfluence.NewDamage(owner.Damage.Value / noDeathPromiseDamageReduction, DamageType.Physical, RangeType.Melee)));
+                }
             }
             Cooldown.Refresh();
         }

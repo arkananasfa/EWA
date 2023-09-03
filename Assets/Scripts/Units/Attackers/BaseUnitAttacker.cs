@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public abstract class BaseUnitAttacker : UsableSkill {
 
@@ -13,11 +14,13 @@ public abstract class BaseUnitAttacker : UsableSkill {
     }
 
     protected virtual void Attack(Cage attackCage) {
-        attackCage.Unit.ApplyHPChange(owner, owner.Damage);
+        UnitView unitView = attackCage.Unit.View;
         if (attackProjectileCode != "") {
-            var go = Object.Instantiate(Game.SpritesExtractor.GetAttackVisual(attackProjectileCode), owner.Cage.View.transform);
-            var attackVisual = go.GetComponent<AttackVisual>();
-            attackVisual.FlyTo(attackCage.View);
+            AnimationSequence.Add(AnimatedObject.CreateAttackProjectile(owner.Cage, attackCage, attackProjectileCode),
+            () => attackCage.Unit.ApplyHPChange(owner, owner.Damage));
+        } else {
+            unitView.UpdateStatus();
+            attackCage.Unit.ApplyHPChange(owner, owner.Damage);
         }
     }
 

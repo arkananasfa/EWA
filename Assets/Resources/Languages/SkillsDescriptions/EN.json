@@ -79,6 +79,16 @@
       "Code": "SummonMageImp",
       "Name": "Summon mage imp",
       "Description": "Summoning imp with 12 damage 10 hp and 2 magic resist."
+    },
+    {
+      "Code": "Hook",
+      "Name": "Hook",
+      "Description": "Drags a unit from one of 8 directions to itself. If it is an enemy, damage it."
+    },
+    {
+      "Code": "SniperShot",
+      "Name": "Hook",
+      "Description": "Drags a unit from one of 8 directions to itself. If it is an enemy, damage it."
     }
   ]
 }

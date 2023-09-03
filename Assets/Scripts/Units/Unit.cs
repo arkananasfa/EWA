@@ -17,7 +17,7 @@ public abstract class Unit {
         set {
             if (_cage != null && _cage != value) {
                 if (value.Y == Team.Opponent.HomeY) {
-                    View.Move(value);
+                    //View.Move(value);
                     View.RemoveUnit();
                     Cage.Unit = null;
                     Team.RemoveUnit(this);
@@ -29,8 +29,8 @@ public abstract class Unit {
                     _cage.Unit = from.Unit;
                     from.Unit = null;
                     Game.Loop.UnitMoved(this, from, value);
-                    if (View != null)
-                        View.Move(value);
+                    //if (View != null)
+                        //View.Move(value);
                 }
             }
             _cage = value;
@@ -178,8 +178,9 @@ public abstract class Unit {
             _deathSound.Play();
 
         Cage.Unit = null;
+        View.RemoveUnit();
         Team.RemoveUnit(this);
-        View.Kill();
+        //View.Kill();
         Game.Loop.UnitDied(this);
     }
 

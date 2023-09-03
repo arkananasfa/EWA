@@ -65,7 +65,6 @@ public class UnitsShop : MonoBehaviour {
             }
         }
         transform.position = _showPosition;
-        yield return null;
     }
 
     private void SetButtons() {

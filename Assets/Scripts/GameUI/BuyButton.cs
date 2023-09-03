@@ -48,7 +48,7 @@ public class BuyButton : MonoBehaviour {
             GameAction gameAction = Game.ActionBuilder.CreateBuyAction(_unitType);
             Game.CageChooseManager.SetAction(gameAction);
             Unit unit = Game.UnitsFactory.CreateUnit(_unitType);
-            _unitInfoPanel.SetUnitWithoutSprite(unit);
+            _unitInfoPanel.SetUnitWithoutSprite(unit, true);
             _unitInfoPanel.SetSprite(_unitImage.sprite);
         });
 

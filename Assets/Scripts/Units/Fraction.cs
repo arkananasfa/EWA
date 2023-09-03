@@ -15,6 +15,10 @@ public enum FractionType {
     Undeads,
     Mages,
     Druids,
-    Wanderers
+    Wanderers,
+    Hunters,
+    Water,
+    E,
+    RR,
 
 }

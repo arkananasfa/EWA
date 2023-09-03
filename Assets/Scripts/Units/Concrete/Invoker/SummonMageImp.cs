@@ -4,7 +4,7 @@ public class SummonMageImp : SummonSkill {
 
     protected override UnitType UnitType { get; set; } = UnitType.MageImp;
 
-    public SummonMageImp(Unit unit) : base(unit, "SummonMageImp", new Cooldown(2)) {}
+    public SummonMageImp(Unit unit) : base(unit, "SummonMageImp", new Cooldown(2, 1)) {}
 
     protected override void Summon(Cage cage) {
         base.Summon(cage);
@@ -12,7 +12,7 @@ public class SummonMageImp : SummonSkill {
     }
 
     protected override List<Cage> GetPossibleCages() {
-        return CageListBuilder.New.Use8Neighbor(owner.Cage).OnlyIf(c => owner.Cage.Y - Game.CurrentTeam.frontDirection == c.Y).Cages;
+        return CageListBuilder.New.Use8Neighbor(owner.Cage).OnlyIf(c => owner.Cage.Y - Game.CurrentTeam.frontDirection == c.Y).OnlyEmpty().Cages;
     }
 
 }

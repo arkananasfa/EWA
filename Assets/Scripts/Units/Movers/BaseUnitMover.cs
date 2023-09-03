@@ -10,6 +10,8 @@ public abstract class BaseUnitMover : UsableSkill {
 
     protected virtual void Move(Cage target) {
         owner.Cage = target;
+        owner.View.Move(target);
+        owner.View.UpdateStatus();
     }
 
     public abstract int GetDistance();
