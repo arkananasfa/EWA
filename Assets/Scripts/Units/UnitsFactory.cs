@@ -15,6 +15,8 @@ public class UnitsFactory {
 
             UnitType.Butcher => new Butcher(),
 
+            UnitType.Hedgehogman => new Hedgehogman(),
+
             UnitType.Rider => new HorseRider(),
             
             UnitType.Raptor => new Raptor(),

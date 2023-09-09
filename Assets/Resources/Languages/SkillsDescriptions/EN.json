@@ -87,8 +87,13 @@
     },
     {
       "Code": "SniperShot",
-      "Name": "Hook",
-      "Description": "Drags a unit from one of 8 directions to itself. If it is an enemy, damage it."
+      "Name": "Sniper shot",
+      "Description": "Shot the most distant enemy. It isn't interesting to shot in close range, is it?"
+    },
+    {
+      "Code": "BarbedArmor",
+      "Name": "Barbed armor",
+      "Description": "Each time after taking 10 damage, spread needles in 8 neighbor cages with half of damage. Damage only enemies."
     }
   ]
 }

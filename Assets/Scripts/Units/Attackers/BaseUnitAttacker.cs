@@ -1,6 +1,3 @@
-using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-
 public abstract class BaseUnitAttacker : UsableSkill {
 
     protected int distance;
@@ -16,8 +13,7 @@ public abstract class BaseUnitAttacker : UsableSkill {
     protected virtual void Attack(Cage attackCage) {
         UnitView unitView = attackCage.Unit.View;
         if (attackProjectileCode != "") {
-            AnimationSequence.Add(AnimatedObject.CreateAttackProjectile(owner.Cage, attackCage, attackProjectileCode),
-            () => attackCage.Unit.ApplyHPChange(owner, owner.Damage));
+            AnimationContainer.CreateProjectile(owner.Cage, attackCage, owner, attackCage.Unit, owner.Damage, attackProjectileCode);
         } else {
             unitView.UpdateStatus();
             attackCage.Unit.ApplyHPChange(owner, owner.Damage);

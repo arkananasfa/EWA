@@ -154,6 +154,8 @@ public class GameContext : MonoInstaller {
         Game.Player2.HeroStartCageX = 7;
         Game.Player1.HeroStartCageY = 6;
         Game.Player2.HeroStartCageY = 1;
+        Game.Player1.MaxGold = 500;
+        Game.Player2.MaxGold = 500;
         _player1UI.SetAvatar(_defaultPlayer1Sprite);
         _player2UI.SetAvatar(_defaultPlayer2Sprite);
     }

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using static UnityEngine.GraphicsBuffer;
+using UnityEngine;
 
 public class TsunamiStrike : Skill {
 
@@ -12,7 +12,6 @@ public class TsunamiStrike : Skill {
     private void ApplyTsunamiStrike(Unit attacker, Unit defender, HPInfluence hpInfluence) {
         if (!CanUse())
             return;
-
         if (hpInfluence.Type == HPChangeType.Damage && attacker == owner) {
             CageListBuilder builder = CageListBuilder.New.Use4Neighbor(defender.Cage);
             List<Unit> enemiesAttacked = new();
@@ -24,11 +23,12 @@ public class TsunamiStrike : Skill {
             Cooldown.Use();
             foreach (var unit in enemiesAttacked) {
                 if (unit.HasEffect("DeathPromise")) {
-                    AnimationSequence.Add(AnimatedObject.CreateInSequenceAttackProjectile(defender.Cage, unit.Cage, "SamuraiSword"),
-                    () => unit.ApplyHPChange(owner, owner.Damage));
+                    AnimationContainer.CreateProjectile(defender.Cage, unit.Cage, owner, unit, owner.Damage, "SamuraiSword");
                 } else {
-                    AnimationSequence.Add(AnimatedObject.CreateInSequenceAttackProjectile(defender.Cage, unit.Cage, "SamuraiSword"),
-                    () => unit.ApplyHPChange(owner, HPInfluence.NewDamage(owner.Damage.Value / noDeathPromiseDamageReduction, DamageType.Physical, RangeType.Melee)));
+                    AnimationContainer.CreateProjectile(defender.Cage, unit.Cage, owner, unit,
+                                                        HPInfluence.NewDamage(owner.Damage.Value / noDeathPromiseDamageReduction, DamageType.Physical, RangeType.Melee),
+                                                        "SamuraiSword"
+                                                        );
                 }
             }
             Cooldown.Refresh();

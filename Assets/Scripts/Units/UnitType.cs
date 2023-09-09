@@ -18,6 +18,7 @@ public enum UnitType {
     // Mages
 
     // Druids
+    Hedgehogman = 410,
 
     // Wanderers
     Rider = 510,

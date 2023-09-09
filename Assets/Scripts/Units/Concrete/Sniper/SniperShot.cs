@@ -8,8 +8,7 @@ public class SniperShot : ActiveSkill {
     }
 
     private void CastSniperShot(Cage target) {
-        AnimationSequence.New().AddMain(AnimatedObject.CreateAttackProjectile(owner.Cage, target, "Bullet", 4000f));
-        target.Unit.ApplyHPChange(owner, owner.Damage);
+        AnimationContainer.CreateProjectile(owner.Cage, target, owner, target.Unit, owner.Damage, "Bullet", 4000f);
     }
 
     protected override List<Cage> GetPossibleCages() {

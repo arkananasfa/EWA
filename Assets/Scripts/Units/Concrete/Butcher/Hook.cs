@@ -11,22 +11,29 @@ public class Hook : ActiveSkill {
         var (x, y) = owner.Cage.Difference(target);
         x = Math.Sign(x);
         y = Math.Sign(y);
-        AnimationSequence.New().AddMain(AnimatedObject.CreateAt(owner.View)
-                                       .SetSkillIconAsSprite("Hook")
-                                       .SetSpeed(1400f)
-                                       .MoveDefineTime(target.View).AfterThat()
-                                       .ReleaseSequence()
-                                       .MoveDefineTime(owner.Cage.GetCageIn(x, y).View)
-                                       .MoveUnit(target.Unit.View, owner.Cage.GetCageIn(x, y).View)
-                                       .UpdateUnitStatus(target.Unit.View)
-                                       .AfterThat()
-                                       .MoveDefineTime(owner.Cage.View)
-                                       .Kill()
+        Cage to = owner.Cage.GetCageIn(x, y);
+        UnitView enemyView = target.Unit.View;
+        CageView ownerCageView = owner.Cage.View;
+        AnimationContainer.Create(() => AnimatedObject.CreateAt(owner.View),
+                                  () => {
+                                      if (owner.Team != target.Unit.Team)
+                                          target.Unit.ApplyHPChange(owner, owner.Damage);
+                                      if (!target.IsEmpty)
+                                          target.Unit.Cage = to;
+                                  },
+                                  ao => {
+                                      ao.SetSkillIconAsSprite("Hook")
+                                        .SetSpeed(1400f)
+                                        .MoveDefineTime(target.View).AfterThat()
+                                        .ReleaseSequence()
+                                        .MoveDefineTime(to.View)
+                                        .MoveUnit(enemyView, to.View)
+                                        .UpdateUnitStatus(enemyView)
+                                        .AfterThat()
+                                        .MoveDefineTime(ownerCageView)
+                                        .Kill();
+                                  }
         );
-        if (owner.Team != target.Unit.Team)
-            target.Unit.ApplyHPChange(owner, owner.Damage);
-        if (!target.IsEmpty)
-            target.Unit.Cage = owner.Cage.GetCageIn(x, y);
     }
 
     protected override List<Cage> GetPossibleCages() {

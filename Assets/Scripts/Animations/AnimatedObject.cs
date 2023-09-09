@@ -6,10 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class AnimatedObject : MonoBehaviour {
 
-    public float Speed = 200;
-
-    [HideInInspector]
-    public float SequenceWaitTime;
+    public float Speed = 1000;
 
     private static AnimatedObject Prefab {
         get {
@@ -31,6 +28,8 @@ public class AnimatedObject : MonoBehaviour {
 
     private Transform _lastTransform;
 
+    private AnimationContainer _container;
+
     public static AnimatedObject Create(Image image) {
         var ao = image.gameObject.AddComponent<AnimatedObject>();
         ao.SetSprite = s => image.sprite = s;
@@ -49,44 +48,7 @@ public class AnimatedObject : MonoBehaviour {
         var ao = Instantiate(Game.SpritesExtractor.GetAttackVisual(code), cageView.transform).GetComponent<AnimatedObject>(); ;
         ao.SetSprite = s => ao.GetComponent<Image>().sprite = s;
         ao.SetSpriteActive = b => ao.GetComponent<Image>().enabled = b;
-        ao._waitTime = AnimationSequence.Current.WaitTime;
         return ao;
-    }
-
-    public static AnimatedObject CreateAttackProjectile(Cage from, Cage to, string code, float speed = -1f) {
-        if (speed > 0f) {
-            return CreateProjectileAt(from.View, code)
-                .SetSpeed(speed)
-                .MoveDefineTime(to.View)
-                .AfterThat().ReleaseSequence()
-                .UpdateUnitStatus(to.Unit.View)
-                .Kill();
-        } else {
-            return CreateProjectileAt(from.View, code)
-                .MoveDefineTime(to.View)
-                .AfterThat().ReleaseSequence()
-                .UpdateUnitStatus(to.Unit.View)
-                .Kill();
-        }
-    }
-
-    public static AnimatedObject CreateInSequenceAttackProjectile(Cage from, Cage to, string code, float speed = -1f) {
-        if (speed > 0f) {
-            return CreateProjectileAt(from.View, code)
-                .SetSpeed(speed)
-                .InSequence()
-                .MoveDefineTime(to.View)
-                .AfterThat().ReleaseSequence()
-                .UpdateUnitStatus(to.Unit.View)
-                .Kill();
-        } else {
-            return CreateProjectileAt(from.View, code)
-                .InSequence()
-                .MoveDefineTime(to.View)
-                .AfterThat().ReleaseSequence()
-                .UpdateUnitStatus(to.Unit.View)
-                .Kill();
-        }
     }
 
     public static AnimatedObject CreateAt(UnitView unitView) {
@@ -108,14 +70,36 @@ public class AnimatedObject : MonoBehaviour {
         return this;
     }
 
-    public AnimatedObject InSequence() {
-        StartCoroutine(InSequenceRoutine());
+    public void LikeAttack(Cage to, UnitView defenderView, float speed = -1f) {
+        if (speed > 0f) {
+             SetSpeed(speed)
+            .MoveDefineTime(to.View)
+            .AfterThat().ReleaseSequence()
+            .UpdateUnitStatus(defenderView)
+            .Kill();
+        } else {
+             MoveDefineTime(to.View)
+            .AfterThat().ReleaseSequence()
+            .UpdateUnitStatus(defenderView)
+            .Kill();
+        }
     }
 
-    private IEnumerator InSequenceRoutine() {
-        yield return null;
-        _waitTime = AnimationSequence.Current.WaitTime;
-        StartCoroutine(HideWhileSequenceReleased(_waitTime));
+    public void LikeAttack(Cage to, float speed = -1f) {
+        if (speed > 0f) {
+            SetSpeed(speed)
+           .MoveDefineTime(to.View)
+           .AfterThat().ReleaseSequence()
+           .Kill();
+        } else {
+            MoveDefineTime(to.View)
+           .AfterThat().ReleaseSequence()
+           .Kill();
+        }
+    }
+
+    public AnimatedObject InContainer(AnimationContainer container) {
+        _container = container;
         return this;
     }
 
@@ -139,7 +123,7 @@ public class AnimatedObject : MonoBehaviour {
     }
 
     public AnimatedObject ReleaseSequence() {
-        SequenceWaitTime = _waitTime;
+        StartCoroutine(ReleaseRoutine(_waitTime));
         return this;
     }
 
@@ -197,7 +181,6 @@ public class AnimatedObject : MonoBehaviour {
         if (_lastTransform == null) {
             transform.SetParent(parentT);
             var moveVector = -transform.localPosition;
-            Debug.Log(moveVector.magnitude);
             allTime = moveVector.magnitude / Speed;
             _time = allTime;
             _lastTransform = parentT;
@@ -208,13 +191,17 @@ public class AnimatedObject : MonoBehaviour {
             transform.localPosition = Vector3.zero;
             transform.SetParent(parentT);
             var moveVector = -transform.localPosition;
-            Debug.Log(moveVector.magnitude);
             transform.SetParent(currentParent);
             allTime = moveVector.magnitude / Speed;
             _time = allTime;
             _lastTransform = parentT;
         }
         yield return MoveRoutine(parentT, wait, allTime);
+    }
+
+    private IEnumerator ReleaseRoutine(float wait) {
+        yield return new WaitForSeconds(wait);
+        _container.Release();
     }
 
     private IEnumerator KillRoutine(float wait, bool kill = false) {
@@ -232,9 +219,4 @@ public class AnimatedObject : MonoBehaviour {
             unitView.UpdateStatus();
     }
 
-    private IEnumerator HideWhileSequenceReleased(float wait) {
-        SetSpriteActive(false);
-        yield return new WaitForSeconds(wait);
-        SetSpriteActive(true);
-    }
 }

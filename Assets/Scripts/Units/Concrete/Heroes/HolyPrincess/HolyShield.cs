@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 public class HolyShield : Skill {
 
     public HolyShield(Unit unit) : base(unit, "HolyShield", Cooldown.NoCooldown) {

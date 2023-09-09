@@ -8,8 +8,7 @@ public class RaptorAttacker : BaseUnitAttacker {
     protected override void Attack(Cage attackCage) {
         List<Cage> enemiesCagesNear = CageListBuilder.New.Use4Neighbor(attackCage).OnlyWithEnemies(owner.Team).Cages;
         foreach (Cage c in enemiesCagesNear) {
-            AnimationSequence.New().AddMain(AnimatedObject.CreateAttackProjectile(owner.Cage, attackCage, "RaptorPaws"));
-            attackCage.Unit.ApplyHPChange(owner, owner.Damage);
+            AnimationContainer.CreateProjectile(owner.Cage, c, owner, c.Unit, owner.Damage, attackProjectileCode);
         }
         UnitView view = owner.View;
         owner.Cage = attackCage;
