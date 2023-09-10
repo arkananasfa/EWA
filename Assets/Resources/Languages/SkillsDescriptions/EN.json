@@ -94,6 +94,11 @@
       "Code": "BarbedArmor",
       "Name": "Barbed armor",
       "Description": "Each time after taking 10 damage, spread needles in 8 neighbor cages with half of damage. Damage only enemies."
+    },
+    {
+      "Code": "Necromancy",
+      "Name": "Necromancy",
+      "Description": "Once per move transform dead enemies troop in radius 2 into sceleton (30 hp, 12 damage, 2 armor)."
     }
   ]
 }

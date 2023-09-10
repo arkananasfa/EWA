@@ -6,14 +6,17 @@ public enum UnitType {
 
     // Demons
     HellHound = 110,
-
     Invoker = 130,
+
     MeleeImp = 131,
     RangedImp = 132,
     MageImp = 133,
 
     // Undeads
     Butcher = 210,
+    Necromancer = 220,
+
+    Sceleton = 221,
 
     // Mages
 

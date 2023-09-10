@@ -17,12 +17,8 @@ public abstract class Unit {
         set {
             if (_cage != null && _cage != value) {
                 if (value.Y == Team.Opponent.HomeY) {
-                    //View.Move(value);
-                    View.RemoveUnit();
-                    Cage.Unit = null;
-                    Team.RemoveUnit(this);
+                    Die(true);
                     Player.Opponent.HP -= (int)Damage.Value;
-                    Game.Loop.UnitDied(this);
                 } else {
                     Cage from = _cage;
                     _cage = value;
@@ -173,15 +169,15 @@ public abstract class Unit {
         }
     }
 
-    public virtual void Die() {
+    public virtual void Die(bool byLastLine = false) {
         if (_deathSound != null)
             _deathSound.Play();
 
         Cage.Unit = null;
         View.RemoveUnit();
         Team.RemoveUnit(this);
-        //View.Kill();
-        Game.Loop.UnitDied(this);
+        if (!byLastLine)
+            Game.Loop.UnitDied(this);
     }
 
     public Sprite GetSprite() {
@@ -206,15 +202,19 @@ public abstract class Unit {
     }
 
     public void UseDispel(Effect.Power power, Effect.DispelType dispelType) {
+        List<Effect> effectsToDispel = new();
         foreach (Effect effect in Effects) {
             if (effect.PowerType <= power) {
                 if (dispelType == Effect.DispelType.Both ||
                    (effect.PurposeType == Effect.Purpose.Good && dispelType == Effect.DispelType.Good) ||
                    (effect.PurposeType == Effect.Purpose.Bad && dispelType == Effect.DispelType.Bad)) 
                 {
-                    effect.EndEffect();
+                    effectsToDispel.Add(effect);
                 }
             }
+        }
+        foreach (Effect effect in effectsToDispel) {
+            effect.EndEffect();
         }
     }
 

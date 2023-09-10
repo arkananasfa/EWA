@@ -13,7 +13,9 @@ public class HolyPunishment : ActiveSkill {
             if (damager == unit && hpInfluence.Type == HPChangeType.Damage) {
                 HPInfluence copy = hpInfluence.Copy();
                 copy.DamageType = DamageType.Absolute;
+                UnitView damagerView = damager.View;
                 damager.ApplyHPChange(owner, copy);
+                damagerView.UpdateStatus();
                 effect.UseVisual();
             }
         };

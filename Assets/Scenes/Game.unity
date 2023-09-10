@@ -2925,7 +2925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3010573386983048389, guid: d550a60912a96d94c9294c9c0febdc82, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 3010573386983048389, guid: d550a60912a96d94c9294c9c0febdc82, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6740,9 +6740,15 @@ MonoBehaviour:
   - unitType: 210
     sprite: {fileID: 21300000, guid: bfbe2610b614f4e4b85bcca013685055, type: 3}
     price: 30
+  - unitType: 220
+    sprite: {fileID: 21300000, guid: a5cc1f7cc38652a47991261c77dc0755, type: 3}
+    price: 28
+  - unitType: 221
+    sprite: {fileID: 21300000, guid: 9736189d174a9274e9fb27de1c4c9e9e, type: 3}
+    price: 0
   - unitType: 410
     sprite: {fileID: 21300000, guid: a309a36f3e272b4469c4e3f00ed16ad6, type: 3}
-    price: 20
+    price: 18
   - unitType: 510
     sprite: {fileID: 21300000, guid: fd770695fe830624aa3acae6685e9def, type: 3}
     price: 18
@@ -10403,7 +10409,7 @@ MonoBehaviour:
       Units: 6e00000082000000
   - fractionType: 2
     fraction:
-      Units: d2000000
+      Units: d2000000dc000000
   - fractionType: 3
     fraction:
       Units: 

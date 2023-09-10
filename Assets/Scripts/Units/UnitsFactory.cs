@@ -14,6 +14,8 @@ public class UnitsFactory {
             UnitType.MageImp => new MageImp(),
 
             UnitType.Butcher => new Butcher(),
+            UnitType.Necromancer => new Necromancer(),
+            UnitType.Sceleton => new Sceleton(),
 
             UnitType.Hedgehogman => new Hedgehogman(),
 
