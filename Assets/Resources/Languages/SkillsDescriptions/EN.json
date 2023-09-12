@@ -99,6 +99,16 @@
       "Code": "Necromancy",
       "Name": "Necromancy",
       "Description": "Once per move transform dead enemies troop in radius 2 into sceleton (30 hp, 12 damage, 2 armor)."
+    },
+    {
+      "Code": "MagicWeakening",
+      "Name": "Magic weakening",
+      "Description": "Reduces enemies mage's damage in 2 times."
+    },
+    {
+      "Code": "Swap",
+      "Name": "Swap",
+      "Description": "Swap space mage with chosen ally."
     }
   ]
 }

@@ -14,6 +14,13 @@ public class CageListBuilder {
 
     public static CageListBuilder New => new CageListBuilder();
 
+    public CageListBuilder UseAll() {
+        for (int i = 0;i<Game.Map.Height;i++) {
+            UseRow(i);
+        }
+        return this;
+    }
+
     public CageListBuilder UseCage(Cage cage) {
         _cages.Add(cage);
         return this;
@@ -87,6 +94,11 @@ public class CageListBuilder {
 
     public CageListBuilder OnlyIf(Func<Cage, bool> condition) {
         _cages = _cages.Where(condition).ToHashSet();
+        return this;
+    }
+
+    public CageListBuilder Remove(Cage cage) {
+        _cages.Remove(cage);
         return this;
     }
 

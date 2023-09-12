@@ -19,6 +19,8 @@ public enum UnitType {
     Sceleton = 221,
 
     // Mages
+    AntiMage = 310,
+    SpaceMage = 320,
 
     // Druids
     Hedgehogman = 410,

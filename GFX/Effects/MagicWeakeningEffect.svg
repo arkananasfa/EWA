@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256"
+   height="256"
+   viewBox="0 0 67.733332 67.733333"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="MagicWeakeningEffect.svg"
+   inkscape:export-filename="..\..\Assets\Resources\EffectsSprites\MagicWeakening.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     inkscape:zoom="2.1442755"
+     inkscape:cx="75.316814"
+     inkscape:cy="113.55817"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Шар 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#ff0707;fill-opacity:1;stroke:#01ffc8;stroke-width:0"
+       d="m -0.51324051,33.302329 c 0,0 1.65775601,0.1745 2.00675701,-1.483257 0.349001,-1.657755 1.134254,-3.751761 1.134254,-3.751761 0,0 -0.436252,2.792009 0.26175,3.839013 0.698003,1.047003 2.87926,1.657754 4.188014,0.785251 1.308755,-0.872503 2.9665095,-4.188013 2.9665095,-4.188013 0,0 -0.4362505,3.839012 0.785253,4.275265 1.221504,0.43625 4.100763,0.523502 4.100763,0.523502 0,0 -3.577261,0.785251 -3.751762,1.919504 -0.174501,1.134256 -0.698002,4.537017 -0.698002,4.537017 0,0 -2.2685075,-4.275265 -3.8390125,-4.275265 -1.570505,0 -3.141011,5.322269 -3.141011,5.322269 0,0 -0.436251,-4.275265 -1.570505,-4.362516 -1.13425401,-0.08725 -2.00675701,0.610753 -2.00675701,0.610753 0,0 -0.349001,-3.22826 -0.436251,-3.751762 z"
+       id="path6" />
+    <path
+       style="fill:#ff0707;fill-opacity:1;stroke:#01ffc8;stroke-width:0"
+       d="m 68.200666,32.844423 c 0,0 -1.657756,0.1745 -2.006757,-1.483257 -0.349001,-1.657755 -1.134254,-3.751761 -1.134254,-3.751761 0,0 0.436252,2.792009 -0.26175,3.839013 -0.698003,1.047003 -2.87926,1.657754 -4.188014,0.785251 -1.308755,-0.872503 -2.96651,-4.188013 -2.96651,-4.188013 0,0 0.436251,3.839012 -0.785253,4.275265 -1.221504,0.43625 -4.100763,0.523502 -4.100763,0.523502 0,0 3.577261,0.785251 3.751762,1.919504 0.174501,1.134256 0.698002,4.537017 0.698002,4.537017 0,0 2.268508,-4.275265 3.839013,-4.275265 1.570505,0 3.141011,5.322269 3.141011,5.322269 0,0 0.436251,-4.275265 1.570505,-4.362516 1.134254,-0.08725 2.006757,0.610753 2.006757,0.610753 0,0 0.349001,-3.22826 0.436251,-3.751762 z"
+       id="path6-2" />
+  </g>
+</svg>

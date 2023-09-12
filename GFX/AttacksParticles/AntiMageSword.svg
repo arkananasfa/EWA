@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256"
+   height="256"
+   viewBox="0 0 67.733332 67.733333"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="AntiMageSword.svg"
+   inkscape:export-filename="..\..\Assets\Sprites\AttackProjectiles\AntiMageSword.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.5162318"
+     inkscape:cx="50.454028"
+     inkscape:cy="35.284843"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Шар 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#2d2d2d;fill-opacity:1;stroke:#ffffff;stroke-width:0"
+       d="m 33.279919,48.096265 c 0,0 0.281092,12.087034 -0.187396,13.30511 -0.468492,1.218072 -1.967656,3.56052 -1.311772,4.591197 0.655884,1.030678 4.778595,1.030678 5.621876,0.281094 0.843283,-0.749584 -1.592865,-3.373128 -1.780261,-4.684898 -0.187395,-1.311769 -0.0937,-13.5862 -0.0937,-13.5862 0,0 4.965991,0.468488 6.090363,0 1.124376,-0.468491 1.967659,-2.998334 1.499168,-2.717243 -0.468488,0.281097 -7.214739,1.592868 -7.121042,0.749585 0.0937,-0.843282 1.967655,-2.715367 1.967655,-5.059688 0,-2.157089 -3.935312,-40.10271916 -3.935312,-40.10271916 0,0 -3.630106,37.95958516 -3.630106,40.16328916 0,2.342919 1.828192,4.03741 2.224635,4.905421 0.490987,1.075012 -6.72072,-0.364955 -7.368034,-0.644519 -0.778932,-0.336409 0.567871,2.351867 1.427228,2.837408 0.992432,0.560729 6.596693,-0.03783 6.596693,-0.03783 z"
+       id="path1"
+       sodipodi:nodetypes="csssscsssscsssscc" />
+  </g>
+</svg>
