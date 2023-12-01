@@ -11,6 +11,7 @@ public class HolyBlessing : ActiveSkill {
 
     private void Bless(Cage cage) {
         Unit unit = cage.Unit;
+        UnitView unitView = unit.View;
         if (unit == owner) {
             unit.ApplyHPChange(owner, HPInfluence.NewHeal(HealHerself));
             soundNumber = 0;
@@ -19,6 +20,7 @@ public class HolyBlessing : ActiveSkill {
             soundNumber = 1;
         }
         unit.UseDispel(Effect.Power.Weak, Effect.DispelType.Bad);
+        unitView.UpdateStatus();
     }
 
     protected override List<Cage> GetPossibleCages() {

@@ -21,13 +21,20 @@ public class UnitsFactory {
             UnitType.SpaceMage => new SpaceMage(),
 
             UnitType.Hedgehogman => new Hedgehogman(),
+            UnitType.Fairy => new Fairy(),
 
             UnitType.Rider => new HorseRider(),
-            
+            UnitType.Berserk => new Berserk(),
+
             UnitType.Raptor => new Raptor(),
+            UnitType.Assassin => new Assassin(),
+
+            UnitType.Fishman => new Fishman(),
+            UnitType.Whale => new Whale(),
 
             UnitType.Sniper => new Sniper(),
-            
+            UnitType.BeerBarrel => new BeerBarrel(),
+
             _ => new Swordsman(),
         };
     }

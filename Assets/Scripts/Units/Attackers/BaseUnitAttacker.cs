@@ -20,6 +20,16 @@ public abstract class BaseUnitAttacker : UsableSkill {
         }
     }
 
+    protected virtual void Attack(Cage attackCage, float wait) {
+        UnitView unitView = attackCage.Unit.View;
+        if (attackProjectileCode != "") {
+            AnimationContainer.CreateProjectileWait(owner.Cage, attackCage, owner, attackCage.Unit, owner.Damage, attackProjectileCode, wait);
+        } else {
+            unitView.UpdateStatus();
+            attackCage.Unit.ApplyHPChange(owner, owner.Damage);
+        }
+    }
+
     public virtual int GetDistance() {
         return distance;
     }

@@ -106,9 +106,49 @@
       "Description": "Reduces enemies mage's damage in 2 times."
     },
     {
+      "Code": "MagicWeakeningEffect",
+      "Name": "Magic weakening effect",
+      "Description": "Reduces magic damage in 2 times."
+    },
+    {
       "Code": "Swap",
       "Name": "Swap",
       "Description": "Swap space mage with chosen ally."
+    },
+    {
+      "Code": "Rage",
+      "Name": "Rage",
+      "Description": "Make as many attacks."
+    },
+    {
+      "Code": "FunAtmosphere",
+      "Name": "Fun atmosphere",
+      "Description": "Makes neighbor (radius 1) allies more confident. Add 3 damage to their attacks."
+    },
+    {
+      "Code": "DustBlast",
+      "Name": "Dust blast",
+      "Description": "Attack all enemies in radius 2."
+    },
+    {
+      "Code": "ShadowDance",
+      "Name": "Shadow dance",
+      "Description": "Blink at the back of an enemy, deals x1.5 damage and poison it. Poisoned enemy takes half of the attack damage for start of next 2 moves."
+    },
+    {
+      "Code": "PoisonedEffect",
+      "Name": "Poisoned",
+      "Description": "Take half of assassin's damage at start of the move."
+    },
+    {
+      "Code": "LongStrike",
+      "Name": "Long strike",
+      "Description": "Deals damage to 3 enemies in front of him. First takes full damage, second takes 2/3 of full, third takes 1/3. Deals no damage to allies."
+    },
+    {
+      "Code": "Wave",
+      "Name": "Wave",
+      "Description": "Deals damage to all enemies on the line in front of caster. Push all units."
     }
   ]
 }

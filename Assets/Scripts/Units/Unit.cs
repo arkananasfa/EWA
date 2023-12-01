@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class Unit { 
+public abstract class Unit {
 
     public UnitView View { get; protected set; }
 
@@ -16,17 +16,19 @@ public abstract class Unit {
         get => _cage;
         set {
             if (_cage != null && _cage != value) {
+                if (value == null)
+                    return;
                 if (value.Y == Team.Opponent.HomeY) {
                     Die(true);
                     Player.Opponent.HP -= (int)Damage.Value;
+                    return;
                 } else {
                     Cage from = _cage;
                     _cage = value;
-                    _cage.Unit = from.Unit;
-                    from.Unit = null;
+                    _cage.Unit = this;
+                    if (from.Unit == this)
+                        from.Unit = null;
                     Game.Loop.UnitMoved(this, from, value);
-                    //if (View != null)
-                        //View.Move(value);
                 }
             }
             _cage = value;
@@ -134,8 +136,11 @@ public abstract class Unit {
             View = CreateView(Cage.View);
             View.SetUnit(this);
             CreateSounds();
+            AfterInit();
         }
     }
+
+    public virtual void AfterInit() {}
 
     public virtual void ApplyHPChange(Unit from, HPInfluence hpChange) {
         HPInfluence hpChangeCopy = hpChange.Copy();
@@ -178,6 +183,12 @@ public abstract class Unit {
         Team.RemoveUnit(this);
         if (!byLastLine)
             Game.Loop.UnitDied(this);
+    }
+
+    public virtual void SetParameter(ShowParameter parameter) {
+        if (View != null) {
+            View.SetParameterToShow(parameter);
+        }
     }
 
     public Sprite GetSprite() {

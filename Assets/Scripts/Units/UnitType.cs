@@ -24,17 +24,23 @@ public enum UnitType {
 
     // Druids
     Hedgehogman = 410,
+    Fairy = 420,
 
     // Wanderers
     Rider = 510,
+    Berserk = 520,
 
     // Hunters
     Raptor = 610,
+    Assassin = 620,
 
     // Water
+    Fishman = 710,
+    Whale = 720,
 
     // Mechanics
     Sniper = 810,
+    BeerBarrel = 820,
 
     // RuneReaders
 

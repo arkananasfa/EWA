@@ -122,4 +122,8 @@ public class Cage {
         return Math.Max(XDistance(other), YDistance(other)) <= radius;
     }
 
+    public override string ToString() {
+        return $"[{X}; {Y}]";
+    }
+
 }

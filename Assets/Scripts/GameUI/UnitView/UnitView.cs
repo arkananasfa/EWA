@@ -20,10 +20,21 @@ public class UnitView : MonoBehaviour {
     [SerializeField]
     private float _spriteDieTime;
 
+    [SerializeField]
+    private HPBar _hpbar;
+
+    [SerializeField]
+    private UnitShowParameterUI _showParameterUI;
+
+    [SerializeField]
+    private float _hpBarTransformIfParameterShown = -12f;
+
     private Unit _context;
     private Image _image;
 
     private Canvas _canvas;
+
+    private bool _isDead;
 
     private void Awake() {
         _image = GetComponent<Image>();
@@ -42,6 +53,16 @@ public class UnitView : MonoBehaviour {
         _context = unit;
 
         SetupIndicators();
+    }
+
+    public void SetParameterToShow(ShowParameter parameter) {
+        _showParameterUI.gameObject.SetActive(true);
+        _showParameterUI.BoundToParameter(parameter);
+        _hpbar.transform.localPosition = new Vector3(
+            _hpbar.transform.localPosition.x + _hpBarTransformIfParameterShown,
+            _hpbar.transform.localPosition.y,
+            _hpbar.transform.localPosition.z
+        );
     }
 
     public void RemoveUnit() {
@@ -65,16 +86,20 @@ public class UnitView : MonoBehaviour {
         if (_context != null) {
             UpdateHP((float)(_context.HP / _context.MaxHP));
         } else {
+            UpdateHP(0);
             Kill();
         }
     }
 
     protected void UpdateHP(float percent) {
-        //...
+        _hpbar.ChangeValue(percent);
     }
 
     protected void Kill() {
-        StartCoroutine(DeathRoutine());
+        if (!_isDead) {
+            _isDead = true;
+            StartCoroutine(DeathRoutine());
+        }
     }
 
     public void ChangeIndicatorsVisibility(bool isVisible) {

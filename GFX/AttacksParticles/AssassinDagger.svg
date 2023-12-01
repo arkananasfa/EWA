@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256"
+   height="256"
+   viewBox="0 0 67.733332 67.733333"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="AssassinDagger.svg"
+   inkscape:export-filename="..\..\Assets\Sprites\AttackProjectiles\AssassinsDagger.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     inkscape:zoom="2.1442755"
+     inkscape:cx="79.514036"
+     inkscape:cy="121.95261"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Шар 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+       d="m 30.705286,35.538016 c -0.542221,10.680894 -1.11912,13.809447 -0.61825,15.891233 0.500873,2.081784 3.183658,2.39129 4.712117,0.245938 1.528459,-2.145351 3.447445,-22.637215 0.152857,-22.533189 -5.099285,0.161004 -4.246724,6.396018 -4.246724,6.396018 z"
+       id="path29"
+       sodipodi:nodetypes="csssc" />
+    <path
+       style="fill:#9a9a9a;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+       d="M 36.278707,31.577559 35.758441,13.96419 c 0,0 -3.389945,3.887735 -3.32257,6.168599 0.06737,2.280863 -1.818588,14.432596 -1.818588,14.432596 z"
+       id="path30" />
+    <path
+       style="fill:#45f000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+       d="m 30.776276,33.601271 c 2.12509,-1.654011 5.215221,-4.984454 5.291743,-5.98338 0.08088,-1.055743 0.04346,-0.0461 -0.04176,-2.17271 -0.0433,-1.080482 0.130946,-0.877929 0.130946,-0.877929 0,0 -0.720147,-2.37679 -1.74887,-2.301582 -1.028721,0.07521 -2.403236,5.136057 -2.622431,6.061416 -0.219199,0.925358 -1.009627,5.274185 -1.009627,5.274185 z"
+       id="path33"
+       sodipodi:nodetypes="csscssc" />
+    <path
+       style="fill:#45f000;stroke:#000000;stroke-width:0"
+       d="m 35.759374,13.938235 c 0,0 0.443245,12.987057 0.398917,13.04616 -0.04433,0.05909 0.01477,0.413692 -0.103418,0.620539 -0.118198,0.206847 -5.082534,5.717853 -5.215509,5.776951 -0.132965,0.05909 0.192073,-1.47748 0.192073,-1.47748 0,0 1.477481,-9.647952 1.418382,-12.115345 -0.05909,-2.467394 3.309559,-5.850825 3.309559,-5.850825 z"
+       id="path1" />
+  </g>
+</svg>

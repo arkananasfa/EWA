@@ -86,6 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6378139040514168571}
   - component: {fileID: 153632395516785284}
+  - component: {fileID: -5334285221405540003}
   m_Layer: 5
   m_Name: MagicWeakening
   m_TagString: Untagged
@@ -135,3 +136,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-5334285221405540003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7000763987334115816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e10a7b68dd72dcf48a95dcce7422a48a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

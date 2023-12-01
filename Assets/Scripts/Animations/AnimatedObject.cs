@@ -127,6 +127,11 @@ public class AnimatedObject : MonoBehaviour {
         return this;
     }
 
+    public AnimatedObject HideFor(float time) {
+        StartCoroutine(HideRoutine(time, _waitTime));
+        return this;
+    }
+
     public AnimatedObject End() {
         StartCoroutine(KillRoutine(_waitTime + _time));
         return this;
@@ -162,6 +167,13 @@ public class AnimatedObject : MonoBehaviour {
         return this;
     }
 
+    protected virtual IEnumerator HideRoutine(float time, float wait) {
+        yield return new WaitForSeconds(wait);
+        SetSpriteActive(false);
+        yield return new WaitForSeconds(time);
+        SetSpriteActive(true);
+    }
+
     protected virtual IEnumerator MoveRoutine(Transform parentT, float wait, float allTime) {
         yield return new WaitForSeconds(wait);
         transform.SetParent(parentT);
@@ -186,12 +198,14 @@ public class AnimatedObject : MonoBehaviour {
             _lastTransform = parentT;
             transform.SetParent(GetComponentInParent<Canvas>().transform);
         } else {
+            var currentPosition = transform.localPosition;
             var currentParent = transform.parent;
             transform.SetParent(_lastTransform);
             transform.localPosition = Vector3.zero;
             transform.SetParent(parentT);
             var moveVector = -transform.localPosition;
             transform.SetParent(currentParent);
+            transform.localPosition = currentPosition;
             allTime = moveVector.magnitude / Speed;
             _time = allTime;
             _lastTransform = parentT;

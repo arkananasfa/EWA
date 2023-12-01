@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Swap : ActiveSkill {
 
@@ -9,9 +10,9 @@ public class Swap : ActiveSkill {
     private void Cast(Cage cage) {
         Unit unit = cage.Unit;
         unit.Cage = owner.Cage;
-        unit.View.Move(owner.Cage.View, 0f, 0.1f);
+        unit?.View.Move(owner.Cage.View, 0f, 0.1f);
         owner.Cage = cage;
-        owner.View.Move(cage.View, 0f, 0.1f);
+        owner?.View.Move(cage.View, 0f, 0.1f);
     }
 
     protected override List<Cage> GetPossibleCages() {

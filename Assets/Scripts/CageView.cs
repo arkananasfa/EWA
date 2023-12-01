@@ -70,6 +70,10 @@ public class CageView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             Unmark();
             OnPointerExit(eventData);
             Game.CageChooseManager.ChooseCage(_context);
+        } else if (eventData.button == PointerEventData.InputButton.Middle) {
+            if (!_context.IsEmpty && _context.Unit.Mover.CanUse() && Game.Network.IsUnitPlayable(_context.Unit)) {
+                _context.Unit.Mover.Use();
+            }
         }
     } 
 

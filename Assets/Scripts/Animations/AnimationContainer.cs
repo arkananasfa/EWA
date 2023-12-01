@@ -4,12 +4,14 @@ using UnityEngine;
 public class AnimationContainer {
 
     public static AnimationContainer Current { get; private set; }
+    public static AnimationContainer TakeCurrent => Current;
     public static int Index = 0;
     public int index;
 
     private event Action OnReleased;
 
     public AnimationContainer previous;
+    public float startWaitTime;
 
     private Action<AnimatedObject> _animatedActions;
     private Func<AnimatedObject> _createAnimatedObject;
@@ -27,11 +29,9 @@ public class AnimationContainer {
 
         if (Current == null) {
             Current = container;
-            Debug.Log(container.index + " start");
             realActions();
 
             Current = null;
-            Debug.Log(container.index + " end");
             Index = 0;
 
             container.StartAnimationActions();
@@ -57,6 +57,17 @@ public class AnimationContainer {
         );
     }
 
+    public static void CreateProjectileWait(Cage from, Cage to, Unit owner, Unit defender, HPInfluence hpInfluence, string code, float waitTime = 0, float speed = -1) {
+        UnitView defenderView = defender.View;
+        Create(() => AnimatedObject.CreateProjectileAt(from.View, code).HideFor(waitTime).WaitFor(waitTime),
+                                  () => {
+                                      TakeCurrent.SetStartWaitTime(waitTime);
+                                      defender.ApplyHPChange(owner, hpInfluence);
+                                  },
+                                  ao => ao.LikeAttack(to, defenderView, speed)
+        );
+    }
+
     public static void CreateProjectile(Cage from, Cage to, string code, float speed = -1) {
         Create(() => AnimatedObject.CreateProjectileAt(from.View, code),
                                   () => { },
@@ -72,7 +83,7 @@ public class AnimationContainer {
 
         container.previous = Current;
         if (container.previous != null && container.previous.previous != null) {
-            container.previous.previous.OnReleased += container.StartAnimationActions;
+            container.previous.previous.OnReleased += container.StartAnimationActionsTogether;
 
             Current = container;
 
@@ -86,8 +97,19 @@ public class AnimationContainer {
 
             Current = container.previous;
 
-            container.StartAnimationActions();
+            container.StartAnimationActionsTogether();
         }
+    }
+
+    public static void CreateProjectileTogether(Cage from, Cage to, string code, float speed = -1) {
+        CreateTogether(() => AnimatedObject.CreateProjectileAt(from.View, code),
+                                  () => { },
+                                  ao => ao.LikeAttack(to, speed)
+        );
+    }
+
+    public void SetStartWaitTime(float time) {
+        startWaitTime = time;
     }
 
     public void Release() {
@@ -96,6 +118,15 @@ public class AnimationContainer {
 
     private void StartAnimationActions() {
         var animatedObject = _createAnimatedObject().InContainer(this);
+        _animatedActions(animatedObject);
+    }
+
+    private void StartAnimationActionsTogether() {
+        if (previous == null) {
+            StartAnimationActions();
+            return;
+        }
+        var animatedObject = _createAnimatedObject().HideFor(previous.startWaitTime).WaitFor(previous.startWaitTime).InContainer(this);
         _animatedActions(animatedObject);
     }
 }
